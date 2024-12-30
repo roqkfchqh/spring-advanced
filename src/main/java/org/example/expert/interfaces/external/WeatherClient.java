@@ -1,6 +1,6 @@
 package org.example.expert.interfaces.external;
 
-import org.example.expert.domain.exception.ServerException;
+import org.example.expert.infrastructure.exception.ServerException;
 import org.example.expert.domain.todo.WeatherDto;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;

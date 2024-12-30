@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.domain.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.*;
 import org.example.expert.domain.user.UserResponse;
@@ -22,8 +22,7 @@ public class CommentService {
     @Transactional
     public CommentSaveResponse saveComment(AuthUser authUser, long todoId, CommentSaveRequest commentSaveRequest) {
         User user = User.fromAuthUser(authUser);
-        Todo todo = todoRepository.findById(todoId).orElseThrow(() ->
-                new InvalidRequestException("Todo not found"));
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 
         Comment newComment = new Comment(
                 commentSaveRequest.getContents(),

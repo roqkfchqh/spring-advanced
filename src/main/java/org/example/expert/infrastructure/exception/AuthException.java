@@ -1,4 +1,4 @@
-package org.example.expert.domain.user.auth;
+package org.example.expert.infrastructure.exception;
 
 public class AuthException extends RuntimeException {
 

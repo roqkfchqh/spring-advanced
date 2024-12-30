@@ -2,7 +2,7 @@ package org.example.expert.infrastructure.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.expert.domain.user.Email;
-import org.example.expert.domain.user.auth.AuthException;
+import org.example.expert.infrastructure.exception.AuthException;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.user.UserRole;

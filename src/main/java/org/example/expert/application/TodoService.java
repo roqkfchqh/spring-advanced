@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.*;
 import org.example.expert.interfaces.external.WeatherClient;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.domain.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.example.expert.domain.user.UserResponse;
 import org.example.expert.domain.user.User;
 import org.springframework.data.domain.Page;
@@ -60,8 +60,7 @@ public class TodoService {
     }
 
     public TodoResponse getTodo(long todoId) {
-        Todo todo = todoRepository.findById(todoId)
-                .orElseThrow(() -> new InvalidRequestException("Todo not found"));
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 
         User user = todo.getUser();
 

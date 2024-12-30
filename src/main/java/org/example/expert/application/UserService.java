@@ -6,7 +6,7 @@ import org.example.expert.domain.user.UserChangePasswordRequest;
 import org.example.expert.domain.user.UserRepository;
 import org.example.expert.domain.user.UserResponse;
 import org.example.expert.infrastructure.PasswordEncoder;
-import org.example.expert.domain.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +17,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponse getUser(long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new InvalidRequestException("User not found"));
+        User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
         return new UserResponse(user.getId(), user.getEmail());
     }
 
@@ -28,8 +28,7 @@ public class UserService {
             throw new InvalidRequestException("새 비밀번호는 8자 이상이어야 하고, 숫자와 대문자를 포함해야 합니다.");
         }
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new InvalidRequestException("User not found"));
+        User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
 
         if (passwordEncoder.matches(userChangePasswordRequest.getNewPassword(), user.getPassword())) {
             throw new InvalidRequestException("새 비밀번호는 기존 비밀번호와 같을 수 없습니다.");

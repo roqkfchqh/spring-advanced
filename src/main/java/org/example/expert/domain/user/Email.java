@@ -2,7 +2,7 @@ package org.example.expert.domain.user;
 
 import jakarta.persistence.Column;
 import lombok.Value;
-import org.example.expert.domain.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
 
 @Value
 public class Email {
