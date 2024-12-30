@@ -8,18 +8,13 @@ import static org.mockito.BDDMockito.given;
 
 import java.util.List;
 import java.util.Optional;
-import org.example.expert.domain.common.dto.AuthUser;
-import org.example.expert.domain.common.exception.InvalidRequestException;
-import org.example.expert.domain.manager.dto.request.ManagerSaveRequest;
-import org.example.expert.domain.manager.dto.response.ManagerResponse;
-import org.example.expert.domain.manager.dto.response.ManagerSaveResponse;
-import org.example.expert.domain.manager.entity.Manager;
-import org.example.expert.domain.manager.repository.ManagerRepository;
-import org.example.expert.domain.todo.entity.Todo;
-import org.example.expert.domain.todo.repository.TodoRepository;
-import org.example.expert.domain.user.entity.User;
-import org.example.expert.domain.user.enums.UserRole;
-import org.example.expert.domain.user.repository.UserRepository;
+
+import org.example.expert.application.ManagerService;
+import org.example.expert.domain.common.AuthUser;
+import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.todo.Todo;
+import org.example.expert.domain.todo.TodoRepository;
+import org.example.expert.domain.user.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

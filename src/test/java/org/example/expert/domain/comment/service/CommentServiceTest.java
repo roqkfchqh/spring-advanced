@@ -1,15 +1,11 @@
 package org.example.expert.domain.comment.service;
 
-import org.example.expert.domain.comment.dto.request.CommentSaveRequest;
-import org.example.expert.domain.comment.dto.response.CommentSaveResponse;
-import org.example.expert.domain.comment.entity.Comment;
-import org.example.expert.domain.comment.repository.CommentRepository;
-import org.example.expert.domain.common.dto.AuthUser;
-import org.example.expert.domain.common.exception.ServerException;
-import org.example.expert.domain.todo.entity.Todo;
-import org.example.expert.domain.todo.repository.TodoRepository;
-import org.example.expert.domain.user.entity.User;
-import org.example.expert.domain.user.enums.UserRole;
+import org.example.expert.application.CommentService;
+import org.example.expert.domain.common.AuthUser;
+import org.example.expert.domain.common.ServerException;
+import org.example.expert.domain.todo.*;
+import org.example.expert.domain.user.User;
+import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
