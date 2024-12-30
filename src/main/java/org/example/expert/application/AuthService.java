@@ -1,11 +1,11 @@
 package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
+import org.example.expert.application.encoder.EncoderService;
+import org.example.expert.application.tokenprovider.TokenProvider;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.auth.*;
 import org.example.expert.infrastructure.exception.AuthException;
-import org.example.expert.infrastructure.jwt.JwtUtil;
-import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
+    private final TokenProvider tokenProvider;
+    private final EncoderService encoderService;
 
     public SignupResponse signup(SignupRequest signupRequest) {
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
@@ -26,12 +26,12 @@ public class AuthService {
 
         User newUser = new User(
                 signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword()),
+                encoderService.encode(signupRequest.getPassword()),
                 userRole
         );
         User savedUser = userRepository.save(newUser);
 
-        String bearerToken = jwtUtil.createToken(savedUser.getId(), String.valueOf(savedUser.getEmail()), userRole);
+        String bearerToken = tokenProvider.createToken(savedUser.getId(), savedUser.getEmail(), userRole);
 
         return new SignupResponse(bearerToken);
     }
@@ -40,11 +40,11 @@ public class AuthService {
         User user = userRepository.findByEmail(signinRequest.getEmail()).orElseThrow(
                 () -> new InvalidRequestException("이메일 또는 비밀번호가 잘못되었습니다."));
 
-        if (!passwordEncoder.matches(signinRequest.getPassword(), user.getPassword())) {
+        if (!encoderService.matches(signinRequest.getPassword(), user.getPassword())) {
             throw new AuthException("이메일 또는 비밀번호가 잘못되었습니다.");
         }
 
-        String bearerToken = jwtUtil.createToken(user.getId(), String.valueOf(user.getEmail()), user.getUserRole());
+        String bearerToken = tokenProvider.createToken(user.getId(), user.getEmail(), user.getUserRole());
 
         return new SigninResponse(bearerToken);
     }
