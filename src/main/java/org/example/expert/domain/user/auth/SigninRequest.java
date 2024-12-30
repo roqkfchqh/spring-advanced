@@ -13,6 +13,7 @@ public class SigninRequest {
     
     @NotBlank
     private Email email;
+
     @NotBlank
     private String password;
 }
