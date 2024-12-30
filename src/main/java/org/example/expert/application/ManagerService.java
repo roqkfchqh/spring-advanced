@@ -15,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ManagerService {
 
     private final ManagerRepository managerRepository;
@@ -66,7 +65,6 @@ public class ManagerService {
         return dtoList;
     }
 
-    @Transactional
     public void deleteManager(long userId, long todoId, long managerId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new InvalidRequestException("User not found"));

@@ -8,11 +8,9 @@ import org.example.expert.domain.user.UserResponse;
 import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.domain.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
@@ -23,7 +21,6 @@ public class UserService {
         return new UserResponse(user.getId(), user.getEmail());
     }
 
-    @Transactional
     public void changePassword(long userId, UserChangePasswordRequest userChangePasswordRequest) {
         if (userChangePasswordRequest.getNewPassword().length() < 8 ||
                 !userChangePasswordRequest.getNewPassword().matches(".*\\d.*") ||
