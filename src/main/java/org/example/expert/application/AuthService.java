@@ -1,10 +1,11 @@
 package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.encoder.EncoderService;
-import org.example.expert.application.tokenprovider.TokenProvider;
+import org.example.expert.application.tokenprovider.TokenGenerator;
+import org.example.expert.application.tokenprovider.TokenSaver;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.auth.*;
+import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.infrastructure.exception.AuthException;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
-    private final TokenProvider tokenProvider;
-    private final EncoderService encoderService;
+    private final TokenGenerator tokenGenerator;
+    private final TokenSaver tokenSaver;
+    private final PasswordEncoder passwordEncoder;
 
     public SignupResponse signup(SignupRequest signupRequest) {
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
@@ -26,26 +28,29 @@ public class AuthService {
 
         User newUser = new User(
                 signupRequest.getEmail(),
-                encoderService.encode(signupRequest.getPassword()),
+                passwordEncoder.encode(signupRequest.getPassword()),
                 userRole
         );
         User savedUser = userRepository.save(newUser);
 
-        String bearerToken = tokenProvider.createToken(savedUser.getId(), savedUser.getEmail(), userRole);
+        //TODO : 레벨6 생각 (왜 두 가지 동작이 ?)
+        String token = tokenGenerator.generate(savedUser.getId(), savedUser.getEmail(), userRole);
+        tokenSaver.save(token, savedUser.getId());
 
-        return new SignupResponse(bearerToken);
+        return new SignupResponse(token);
     }
 
     public SigninResponse signin(SigninRequest signinRequest) {
         User user = userRepository.findByEmail(signinRequest.getEmail()).orElseThrow(
                 () -> new InvalidRequestException("이메일 또는 비밀번호가 잘못되었습니다."));
 
-        if (!encoderService.matches(signinRequest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(signinRequest.getPassword(), user.getPassword())) {
             throw new AuthException("이메일 또는 비밀번호가 잘못되었습니다.");
         }
 
-        String bearerToken = tokenProvider.createToken(user.getId(), user.getEmail(), user.getUserRole());
+        String token = tokenGenerator.generate(user.getId(), user.getEmail(), user.getUserRole());
+        tokenSaver.save(token, user.getId());
 
-        return new SigninResponse(bearerToken);
+        return new SigninResponse(token);
     }
 }

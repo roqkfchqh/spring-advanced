@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JwtTokenProvider implements TokenProvider {
+public class JwtTokenProvider implements TokenGenerator {
 
     private final JwtUtil jwtUtil;
 
     @Override
-    public String createToken(Long userId, Email email, UserRole role){
-        return jwtUtil.createToken(userId, String.valueOf(email), UserRole.of(String.valueOf(role)));
+    public String generate(Long userId, Email email, UserRole userRole){
+        return jwtUtil.createToken(userId, String.valueOf(email), UserRole.of(String.valueOf(userRole)));
     }
 }
