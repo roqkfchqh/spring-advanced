@@ -1,9 +1,13 @@
 package org.example.expert.domain.comment.service;
 
 import org.example.expert.application.CommentService;
-import org.example.expert.domain.common.AuthUser;
-import org.example.expert.domain.common.ServerException;
+import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.domain.exception.ServerException;
 import org.example.expert.domain.todo.*;
+import org.example.expert.domain.todo.comment.Comment;
+import org.example.expert.domain.todo.comment.CommentRepository;
+import org.example.expert.domain.todo.comment.CommentSaveRequest;
+import org.example.expert.domain.todo.comment.CommentSaveResponse;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;

@@ -2,9 +2,10 @@ package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.user.*;
+import org.example.expert.domain.user.auth.*;
 import org.example.expert.infrastructure.jwt.JwtUtil;
 import org.example.expert.infrastructure.PasswordEncoder;
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -6,7 +6,7 @@ import org.example.expert.domain.user.UserChangePasswordRequest;
 import org.example.expert.domain.user.UserRepository;
 import org.example.expert.domain.user.UserResponse;
 import org.example.expert.infrastructure.PasswordEncoder;
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

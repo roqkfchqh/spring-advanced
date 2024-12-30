@@ -1,7 +1,7 @@
 package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.exception.InvalidRequestException;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRepository;
 import org.example.expert.domain.user.UserRole;

@@ -1,6 +1,6 @@
 package org.example.expert.domain.user;
 
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.exception.InvalidRequestException;
 
 import java.util.Arrays;
 

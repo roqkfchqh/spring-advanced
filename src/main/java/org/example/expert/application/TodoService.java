@@ -2,9 +2,9 @@ package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.*;
-import org.example.expert.interfaces.WeatherClient;
-import org.example.expert.domain.common.AuthUser;
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.interfaces.external.WeatherClient;
+import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.domain.exception.InvalidRequestException;
 import org.example.expert.domain.user.UserResponse;
 import org.example.expert.domain.user.User;
 import org.springframework.data.domain.Page;

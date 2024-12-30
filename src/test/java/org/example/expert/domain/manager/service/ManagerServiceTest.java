@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.example.expert.application.ManagerService;
-import org.example.expert.domain.common.AuthUser;
-import org.example.expert.domain.common.InvalidRequestException;
+import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.domain.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
+import org.example.expert.domain.user.manager.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

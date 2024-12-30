@@ -1,7 +1,7 @@
 package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.domain.todo.CommentRepository;
+import org.example.expert.domain.todo.comment.CommentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
