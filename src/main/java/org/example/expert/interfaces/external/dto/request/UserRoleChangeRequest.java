@@ -1,4 +1,4 @@
-package org.example.expert.interfaces.dto.user;
+package org.example.expert.interfaces.external.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

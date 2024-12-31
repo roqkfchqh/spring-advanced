@@ -1,10 +1,10 @@
-package org.example.expert.application;
+package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.User;
-import org.example.expert.interfaces.dto.user.UserChangePasswordRequest;
+import org.example.expert.interfaces.external.dto.request.UserChangePasswordRequest;
 import org.example.expert.domain.user.UserRepository;
-import org.example.expert.interfaces.dto.user.UserResponse;
 import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponse getUser(long userId) {
-        User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
-        return new UserResponse(user.getId(), user.getEmail());
+    public User getUser(long userId) {
+        return EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
     }
 
+    //TODO: 트랜잭션 달아야함
     public void changePassword(long userId, UserChangePasswordRequest userChangePasswordRequest) {
         if (userChangePasswordRequest.getNewPassword().length() < 8 ||
                 !userChangePasswordRequest.getNewPassword().matches(".*\\d.*") ||

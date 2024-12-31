@@ -1,4 +1,4 @@
-package org.example.expert.interfaces.dto.todo;
+package org.example.expert.interfaces.external.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

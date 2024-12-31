@@ -1,4 +1,4 @@
-package org.example.expert.interfaces.external;
+package org.example.expert.interfaces.external.weather;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package org.example.expert.interfaces.external;
+package org.example.expert.interfaces.external.weather;
 
 import org.example.expert.infrastructure.exception.ServerException;
 import org.springframework.boot.web.client.RestTemplateBuilder;

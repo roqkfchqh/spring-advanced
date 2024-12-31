@@ -1,4 +1,4 @@
-package org.example.expert.application;
+package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.comment.CommentRepository;
