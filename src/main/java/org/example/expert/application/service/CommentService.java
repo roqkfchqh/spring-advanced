@@ -3,6 +3,7 @@ package org.example.expert.application.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.application.helper.EntityValidator;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.*;
@@ -34,6 +35,7 @@ public class CommentService {
 
     //TODO: todoId 통해서 해당 Todo 존재하는지 체킹
     public List<Comment> getComments(long todoId) {
+        EntityValidator.isExistsById(todoRepository, todoId, "Todo not found");
         return commentRepository.findAllByTodoId(todoId);
     }
 }
