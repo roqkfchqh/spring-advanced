@@ -1,7 +1,7 @@
 package org.example.expert.interfaces.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.domain.user.UserRoleChangeRequest;
+import org.example.expert.interfaces.dto.user.UserRoleChangeRequest;
 import org.example.expert.application.UserAdminService;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

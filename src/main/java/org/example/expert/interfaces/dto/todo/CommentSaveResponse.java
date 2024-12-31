@@ -1,7 +1,7 @@
-package org.example.expert.domain.todo.comment;
+package org.example.expert.interfaces.dto.todo;
 
 import lombok.Getter;
-import org.example.expert.domain.user.UserResponse;
+import org.example.expert.interfaces.dto.user.UserResponse;
 
 @Getter
 public class CommentSaveResponse {

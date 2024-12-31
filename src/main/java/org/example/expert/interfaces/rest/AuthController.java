@@ -2,10 +2,10 @@ package org.example.expert.interfaces.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.domain.user.auth.SigninRequest;
-import org.example.expert.domain.user.auth.SignupRequest;
-import org.example.expert.domain.user.auth.SigninResponse;
-import org.example.expert.domain.user.auth.SignupResponse;
+import org.example.expert.interfaces.dto.user.SigninRequest;
+import org.example.expert.interfaces.dto.user.SignupRequest;
+import org.example.expert.interfaces.dto.user.SigninResponse;
+import org.example.expert.interfaces.dto.user.SignupResponse;
 import org.example.expert.application.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

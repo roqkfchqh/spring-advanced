@@ -1,18 +1,19 @@
-package org.example.expert.domain.todo;
+package org.example.expert.interfaces.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.expert.domain.user.Email;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoSaveRequest {
+public class SigninRequest {
+    
+    @NotBlank
+    private Email email;
 
     @NotBlank
-    private String title;
-
-    @NotBlank
-    private String contents;
+    private String password;
 }

@@ -2,9 +2,9 @@ package org.example.expert.application;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.user.User;
-import org.example.expert.domain.user.UserChangePasswordRequest;
+import org.example.expert.interfaces.dto.user.UserChangePasswordRequest;
 import org.example.expert.domain.user.UserRepository;
-import org.example.expert.domain.user.UserResponse;
+import org.example.expert.interfaces.dto.user.UserResponse;
 import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;

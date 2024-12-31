@@ -2,9 +2,9 @@ package org.example.expert.interfaces.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.domain.todo.comment.CommentSaveRequest;
-import org.example.expert.domain.todo.comment.CommentResponse;
-import org.example.expert.domain.todo.comment.CommentSaveResponse;
+import org.example.expert.interfaces.dto.todo.CommentSaveRequest;
+import org.example.expert.interfaces.dto.todo.CommentResponse;
+import org.example.expert.interfaces.dto.todo.CommentSaveResponse;
 import org.example.expert.application.CommentService;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;

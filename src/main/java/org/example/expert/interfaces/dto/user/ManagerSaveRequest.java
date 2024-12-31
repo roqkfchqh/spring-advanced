@@ -1,4 +1,4 @@
-package org.example.expert.domain.user.manager;
+package org.example.expert.interfaces.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

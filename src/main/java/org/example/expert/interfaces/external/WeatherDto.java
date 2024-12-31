@@ -1,4 +1,4 @@
-package org.example.expert.domain.todo;
+package org.example.expert.interfaces.external;
 
 import lombok.Getter;
 

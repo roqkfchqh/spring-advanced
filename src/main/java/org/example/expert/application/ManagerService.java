@@ -9,11 +9,13 @@ import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.manager.*;
+import org.example.expert.interfaces.dto.user.ManagerResponse;
+import org.example.expert.interfaces.dto.user.ManagerSaveRequest;
+import org.example.expert.interfaces.dto.user.ManagerSaveResponse;
+import org.example.expert.interfaces.dto.user.UserResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-
-import javax.swing.text.html.parser.Entity;
 
 @Service
 @RequiredArgsConstructor

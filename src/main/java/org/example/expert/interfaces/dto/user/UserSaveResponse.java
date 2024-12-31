@@ -1,4 +1,4 @@
-package org.example.expert.domain.user;
+package org.example.expert.interfaces.dto.user;
 
 import lombok.Getter;
 

@@ -1,7 +1,6 @@
-package org.example.expert.domain.user.manager;
+package org.example.expert.interfaces.dto.user;
 
 import lombok.Getter;
-import org.example.expert.domain.user.UserResponse;
 
 @Getter
 public class ManagerSaveResponse {
