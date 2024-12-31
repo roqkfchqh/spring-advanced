@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRepository;
-import org.example.expert.domain.user.UserRole;
-import org.example.expert.interfaces.external.dto.request.UserRoleChangeRequest;
+import org.example.expert.interfaces.external.dto.request.UserRoleChangeVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,9 +13,9 @@ public class UserAdminService {
 
     private final UserRepository userRepository;
 
-    public void changeUserRole(long userId, UserRoleChangeRequest userRoleChangeRequest) {
+    public void changeUserRole(long userId, UserRoleChangeVo vo) {
         User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
-        user.updateRole(UserRole.of(userRoleChangeRequest.getRole()));
+        user.updateRole(vo.getRole());
         userRepository.save(user);
     }
 }

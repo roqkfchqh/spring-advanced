@@ -6,7 +6,7 @@ import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
-import org.example.expert.interfaces.external.dto.request.TodoSaveRequest;
+import org.example.expert.interfaces.external.dto.request.TodoSaveVo;
 import org.example.expert.interfaces.external.dto.response.TodoResponse;
 import org.example.expert.application.service.TodoService;
 import org.example.expert.interfaces.external.mapper.TodoMapper;
@@ -27,9 +27,9 @@ public class TodoController {
     @PostMapping("/todos")
     public ResponseEntity<TodoResponse> saveTodo(
             @Auth AuthUser authUser,
-            @Valid @RequestBody TodoSaveRequest todoSaveRequest
+            @Valid @RequestBody TodoSaveVo vo
     ) {
-        Todo todo = todoService.saveTodo(authUser, todoSaveRequest);
+        Todo todo = todoService.saveTodo(authUser, vo);
         return ResponseEntity.ok(todoMapper.toDto(todo));
     }
 

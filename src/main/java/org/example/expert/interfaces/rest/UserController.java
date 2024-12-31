@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.interfaces.external.dto.request.UserChangePasswordRequest;
+import org.example.expert.interfaces.external.dto.request.UserChangePasswordVo;
 import org.example.expert.interfaces.external.dto.response.UserResponse;
 import org.example.expert.application.service.UserService;
 import org.example.expert.interfaces.external.mapper.UserMapper;
@@ -29,8 +29,8 @@ public class UserController {
     @PutMapping("/users")
     public void changePassword(
             @Auth AuthUser authUser,
-            @RequestBody UserChangePasswordRequest userChangePasswordRequest
+            @RequestBody UserChangePasswordVo vo
     ) {
-        userService.changePassword(authUser.getId(), userChangePasswordRequest);
+        userService.changePassword(authUser.getId(), vo);
     }
 }
