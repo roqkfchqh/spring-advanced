@@ -8,7 +8,6 @@ import org.example.expert.interfaces.external.weather.WeatherClient;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.user.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +35,7 @@ public class TodoService {
         return todoRepository.save(newTodo);
     }
 
-    public Page<Todo> getTodos(int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size); //TODO : 이거 controller 에서 처리하도록
-
+    public Page<Todo> getTodos(Pageable pageable) {
         return todoRepository.findAllByOrderByModifiedAtDesc(pageable);
     }
 
