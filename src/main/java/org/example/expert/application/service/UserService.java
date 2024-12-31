@@ -8,6 +8,7 @@ import org.example.expert.domain.user.UserRepository;
 import org.example.expert.infrastructure.PasswordEncoder;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,6 @@ public class UserService {
         return EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
     }
 
-    //TODO: 트랜잭션 달아야함
     public void changePassword(long userId, UserChangePasswordRequest userChangePasswordRequest) {
         if (userChangePasswordRequest.getNewPassword().length() < 8 ||
                 !userChangePasswordRequest.getNewPassword().matches(".*\\d.*") ||
@@ -39,5 +39,6 @@ public class UserService {
         }
 
         user.changePassword(passwordEncoder.encode(userChangePasswordRequest.getNewPassword()));
+        userRepository.save(user);
     }
 }

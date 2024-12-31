@@ -33,7 +33,6 @@ public class CommentService {
         return commentRepository.save(newComment);
     }
 
-    //TODO: todoId 통해서 해당 Todo 존재하는지 체킹
     public List<Comment> getComments(long todoId) {
         EntityValidator.isExistsById(todoRepository, todoId, "Todo not found");
         return commentRepository.findAllByTodoId(todoId);
