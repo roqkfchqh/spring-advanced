@@ -15,6 +15,9 @@ public class UserRoleChangeVo {
     }
 
     private UserRole validateAndConvert(String role) {
+        if (role == null || role.isBlank()) {
+            throw new IllegalArgumentException("UserRole은 비어 있을 수 없습니다.");
+        }
         return Arrays.stream(UserRole.values())
                 .filter(r -> r.name().equalsIgnoreCase(role))
                 .findFirst()

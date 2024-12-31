@@ -37,8 +37,10 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
         Long userId = (Long) request.getAttribute("userId");
         String email = (String) request.getAttribute("email");
-        UserRole userRole = UserRole.of((String) request.getAttribute("userRole"));
+        UserRole userRole = (UserRole) request.getAttribute("userRole");
 
         return new AuthUser(userId, email, userRole);
     }
 }
+
+//TODO: 전역 예외처리 추가, 테스트코드 작성

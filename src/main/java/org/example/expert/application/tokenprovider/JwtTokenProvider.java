@@ -13,6 +13,6 @@ public class JwtTokenProvider implements TokenProvider {
 
     @Override
     public String createToken(Long userId, String email, UserRole role){
-        return jwtUtil.createToken(userId, email, UserRole.of(String.valueOf(role)));
+        return jwtUtil.createToken(userId, email, role);
     }
 }
