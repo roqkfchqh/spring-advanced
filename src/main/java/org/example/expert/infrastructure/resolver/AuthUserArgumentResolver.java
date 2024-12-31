@@ -1,7 +1,6 @@
 package org.example.expert.infrastructure.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.expert.domain.user.Email;
 import org.example.expert.infrastructure.exception.AuthException;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
@@ -37,7 +36,7 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 
         Long userId = (Long) request.getAttribute("userId");
-        Email email = (Email) request.getAttribute("email");
+        String email = (String) request.getAttribute("email");
         UserRole userRole = UserRole.of((String) request.getAttribute("userRole"));
 
         return new AuthUser(userId, email, userRole);

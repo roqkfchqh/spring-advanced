@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.expert.domain.user.Email;
 
 @Getter
 @NoArgsConstructor
@@ -12,7 +11,7 @@ import org.example.expert.domain.user.Email;
 public class SigninRequest {
     
     @NotBlank
-    private Email email;
+    private String email;
 
     @NotBlank
     private String password;
