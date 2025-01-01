@@ -1,16 +1,10 @@
 package org.example.expert.domain.todo;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.expert.domain.common.Timestamped;
-import org.example.expert.domain.todo.comment.Comment;
-import org.example.expert.domain.user.manager.Manager;
 import org.example.expert.domain.user.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
