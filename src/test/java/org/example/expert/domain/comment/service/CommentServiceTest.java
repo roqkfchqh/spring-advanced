@@ -1,15 +1,16 @@
 package org.example.expert.domain.comment.service;
 
-import org.example.expert.application.CommentService;
+import org.example.expert.application.service.CommentService;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.domain.exception.ServerException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.ServerException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.Comment;
 import org.example.expert.domain.todo.comment.CommentRepository;
-import org.example.expert.domain.todo.comment.CommentSaveRequest;
-import org.example.expert.domain.todo.comment.CommentSaveResponse;
+import org.example.expert.interfaces.external.dto.request.CommentSaveVo;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
+import org.example.expert.interfaces.external.dto.response.CommentResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,16 +35,16 @@ class CommentServiceTest {
     private CommentService commentService;
 
     @Test
-    public void comment_등록_중_할일을_찾지_못해_에러가_발생한다() {
+    public void todoNotFoundWhenCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveRequest request = new CommentSaveRequest("contents");
+        CommentSaveVo request = new CommentSaveVo("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
 
         given(todoRepository.findById(anyLong())).willReturn(Optional.empty());
 
         // when
-        ServerException exception = assertThrows(ServerException.class, () -> {
+        InvalidRequestException exception = assertThrows(InvalidRequestException.class, () -> {
             commentService.saveComment(authUser, todoId, request);
         });
 
@@ -52,10 +53,10 @@ class CommentServiceTest {
     }
 
     @Test
-    public void comment를_정상적으로_등록한다() {
+    public void successCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveRequest request = new CommentSaveRequest("contents");
+        CommentSaveVo request = new CommentSaveVo("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
         User user = User.fromAuthUser(authUser);
         Todo todo = new Todo("title", "title", "contents", user);
@@ -65,9 +66,13 @@ class CommentServiceTest {
         given(commentRepository.save(any())).willReturn(comment);
 
         // when
-        CommentSaveResponse result = commentService.saveComment(authUser, todoId, request);
+        Comment result = commentService.saveComment(authUser, todoId, request);
 
         // then
         assertNotNull(result);
+        assertEquals(request.getContents(), result.getContents());
+        assertEquals(user.getId(), result.getUser().getId());
+        assertEquals(todo.getId(), result.getTodo().getId());
+        assertEquals(user.getEmail(), result.getUser().getEmail());
     }
 }

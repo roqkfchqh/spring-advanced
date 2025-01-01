@@ -9,13 +9,14 @@ import static org.mockito.BDDMockito.given;
 import java.util.List;
 import java.util.Optional;
 
-import org.example.expert.application.ManagerService;
+import org.example.expert.application.service.ManagerService;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.domain.exception.InvalidRequestException;
+import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.manager.*;
+import org.example.expert.interfaces.external.dto.request.ManagerSaveVo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +37,7 @@ class ManagerServiceTest {
     private ManagerService managerService;
 
     @Test
-    public void manager_목록_조회_시_Todo가_없다면_NPE_에러를_던진다() {
+    public void todoNotFoundWhenGetManagers() {
         // given
         long todoId = 1L;
         given(todoRepository.findById(todoId)).willReturn(Optional.empty());
@@ -47,7 +48,7 @@ class ManagerServiceTest {
     }
 
     @Test
-    void todo의_user가_null인_경우_예외가_발생한다() {
+    void todoUserIsNull() {
         // given
         AuthUser authUser = new AuthUser(1L, "a@a.com", UserRole.USER);
         long todoId = 1L;
@@ -56,7 +57,7 @@ class ManagerServiceTest {
         Todo todo = new Todo();
         ReflectionTestUtils.setField(todo, "user", null);
 
-        ManagerSaveRequest managerSaveRequest = new ManagerSaveRequest(managerUserId);
+        ManagerSaveVo managerSaveRequest = new ManagerSaveVo(managerUserId);
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
 
@@ -65,11 +66,11 @@ class ManagerServiceTest {
             managerService.saveManager(authUser, todoId, managerSaveRequest)
         );
 
-        assertEquals("담당자를 등록하려고 하는 유저가 일정을 만든 유저가 유효하지 않습니다.", exception.getMessage());
+        assertEquals("일정을 만든 유저가 유효하지 않습니다.", exception.getMessage());
     }
 
     @Test // 테스트코드 샘플
-    public void manager_목록_조회에_성공한다() {
+    public void successGetManagers() {
         // given
         long todoId = 1L;
         User user = new User("user1@example.com", "password", UserRole.USER);
@@ -83,7 +84,7 @@ class ManagerServiceTest {
         given(managerRepository.findAllByTodoId(todoId)).willReturn(managerList);
 
         // when
-        List<ManagerResponse> managerResponses = managerService.getManagers(todoId);
+        List<Manager> managerResponses = managerService.getManagers(todoId);
 
         // then
         assertEquals(1, managerResponses.size());
@@ -92,7 +93,7 @@ class ManagerServiceTest {
     }
 
     @Test // 테스트코드 샘플
-    void todo가_정상적으로_등록된다() {
+    void successCreateTodo() {
         // given
         AuthUser authUser = new AuthUser(1L, "a@a.com", UserRole.USER);
         User user = User.fromAuthUser(authUser);  // 일정을 만든 유저
@@ -104,14 +105,14 @@ class ManagerServiceTest {
         User managerUser = new User("b@b.com", "password", UserRole.USER);  // 매니저로 등록할 유저
         ReflectionTestUtils.setField(managerUser, "id", managerUserId);
 
-        ManagerSaveRequest managerSaveRequest = new ManagerSaveRequest(managerUserId); // request dto 생성
+        ManagerSaveVo managerSaveRequest = new ManagerSaveVo(managerUserId); // request dto 생성
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
         given(userRepository.findById(managerUserId)).willReturn(Optional.of(managerUser));
         given(managerRepository.save(any(Manager.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        ManagerSaveResponse response = managerService.saveManager(authUser, todoId, managerSaveRequest);
+        Manager response = managerService.saveManager(authUser, todoId, managerSaveRequest);
 
         // then
         assertNotNull(response);
