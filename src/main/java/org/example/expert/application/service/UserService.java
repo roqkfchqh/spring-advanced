@@ -5,7 +5,7 @@ import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.User;
 import org.example.expert.interfaces.external.dto.request.UserChangePasswordVo;
 import org.example.expert.domain.user.UserRepository;
-import org.example.expert.infrastructure.PasswordEncoder;
+import org.example.expert.infrastructure.encoder.PasswordEncoder;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.springframework.stereotype.Service;
 

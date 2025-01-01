@@ -2,7 +2,7 @@ package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.user.*;
-import org.example.expert.infrastructure.PasswordEncoder;
+import org.example.expert.infrastructure.encoder.PasswordEncoder;
 import org.example.expert.infrastructure.exception.AuthException;
 import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.example.expert.interfaces.external.dto.request.SigninVo;
