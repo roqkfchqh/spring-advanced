@@ -3,12 +3,12 @@ package org.example.expert.interfaces.external.dto.request;
 import lombok.Value;
 
 @Value
-public class UserChangePasswordVo {
+public class UserChangePasswordDto {
 
     String oldPassword;
     String newPassword;
 
-    public UserChangePasswordVo(String oldPassword, String newPassword) {
+    public UserChangePasswordDto(String oldPassword, String newPassword) {
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
 

@@ -3,7 +3,7 @@ package org.example.expert.interfaces.rest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.comment.Comment;
-import org.example.expert.interfaces.external.dto.request.CommentSaveVo;
+import org.example.expert.interfaces.external.dto.request.CommentSaveDto;
 import org.example.expert.interfaces.external.dto.response.CommentResponse;
 import org.example.expert.application.service.CommentService;
 import org.example.expert.domain.user.auth.Auth;
@@ -25,9 +25,9 @@ public class CommentController {
     public ResponseEntity<CommentResponse> saveComment(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
-            @Valid @RequestBody final CommentSaveVo vo
+            @Valid @RequestBody final CommentSaveDto dto
     ) {
-        Comment comment = commentService.saveComment(authUser, todoId, vo);
+        Comment comment = commentService.saveComment(authUser, todoId, dto);
         return ResponseEntity.ok(commentMapper.toDto(comment));
     }
 

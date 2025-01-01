@@ -6,13 +6,13 @@ import org.example.expert.domain.user.UserRole;
 import java.util.Arrays;
 
 @Value
-public class SignupVo {
+public class SignupDto {
 
     String email;
     String password;
     UserRole userRole;
 
-    public SignupVo(String email, String password, String userRole) {
+    public SignupDto(String email, String password, String userRole) {
         this.email = email;
         this.password = password;
         this.userRole = validateAndConvert(userRole);

@@ -1,7 +1,7 @@
 package org.example.expert.interfaces.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.interfaces.external.dto.request.UserRoleChangeVo;
+import org.example.expert.interfaces.external.dto.request.UserRoleChangeDto;
 import org.example.expert.application.service.UserAdminService;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +17,8 @@ public class UserAdminController {
     @PatchMapping("/admin/users/{userId}")
     public void changeUserRole(
             @PathVariable long userId,
-            @RequestBody UserRoleChangeVo vo
+            @RequestBody UserRoleChangeDto dto
     ) {
-        userAdminService.changeUserRole(userId, vo);
+        userAdminService.changeUserRole(userId, dto);
     }
 }

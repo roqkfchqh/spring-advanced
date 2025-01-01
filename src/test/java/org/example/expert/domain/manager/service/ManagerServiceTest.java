@@ -16,7 +16,7 @@ import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.manager.*;
-import org.example.expert.interfaces.external.dto.request.ManagerSaveVo;
+import org.example.expert.interfaces.external.dto.request.ManagerSaveDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -57,7 +57,7 @@ class ManagerServiceTest {
         Todo todo = new Todo();
         ReflectionTestUtils.setField(todo, "user", null);
 
-        ManagerSaveVo managerSaveRequest = new ManagerSaveVo(managerUserId);
+        ManagerSaveDto managerSaveRequest = new ManagerSaveDto(managerUserId);
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
 
@@ -105,7 +105,7 @@ class ManagerServiceTest {
         User managerUser = new User("b@b.com", "password", UserRole.USER);  // 매니저로 등록할 유저
         ReflectionTestUtils.setField(managerUser, "id", managerUserId);
 
-        ManagerSaveVo managerSaveRequest = new ManagerSaveVo(managerUserId); // request dto 생성
+        ManagerSaveDto managerSaveRequest = new ManagerSaveDto(managerUserId); // request dto 생성
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
         given(userRepository.findById(managerUserId)).willReturn(Optional.of(managerUser));

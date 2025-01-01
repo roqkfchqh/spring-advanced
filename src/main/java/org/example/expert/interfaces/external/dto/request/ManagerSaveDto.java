@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Value;
 
 @Value
-public class ManagerSaveVo {
+public class ManagerSaveDto {
 
     @NotNull
     Long managerUserId;

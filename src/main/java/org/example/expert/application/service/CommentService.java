@@ -7,7 +7,7 @@ import org.example.expert.application.helper.EntityValidator;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.*;
-import org.example.expert.interfaces.external.dto.request.CommentSaveVo;
+import org.example.expert.interfaces.external.dto.request.CommentSaveDto;
 import org.example.expert.domain.user.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +20,12 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public Comment saveComment(AuthUser authUser, long todoId, final CommentSaveVo vo) {
+    public Comment saveComment(AuthUser authUser, long todoId, final CommentSaveDto dto) {
         User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 
         Comment newComment = new Comment(
-                vo.getContents(),
+                dto.getContents(),
                 user,
                 todo
         );

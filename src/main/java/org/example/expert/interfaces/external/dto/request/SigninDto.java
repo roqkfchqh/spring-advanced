@@ -3,12 +3,12 @@ package org.example.expert.interfaces.external.dto.request;
 import lombok.Value;
 
 @Value
-public class SigninVo {
+public class SigninDto {
 
     String email;
     String password;
 
-    public SigninVo(String email, String password) {
+    public SigninDto(String email, String password) {
         this.email = email;
         this.password = password;
 

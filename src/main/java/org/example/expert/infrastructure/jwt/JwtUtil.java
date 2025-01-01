@@ -30,8 +30,18 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        byte[] bytes = Base64.getDecoder().decode(secretKey);
-        key = Keys.hmacShaKeyFor(bytes);
+        if (!StringUtils.hasText(secretKey)) {
+            log.error("JWT secret key is null or empty");
+            throw new IllegalArgumentException("JWT secret key must not be null or empty");
+        }
+        try {
+            byte[] bytes = Base64.getDecoder().decode(secretKey);
+            key = Keys.hmacShaKeyFor(bytes);
+            log.info("JWT secret key initialized successfully");
+        } catch (IllegalArgumentException e) {
+            log.error("Failed to decode JWT secret key: {}", e.getMessage());
+            throw new IllegalArgumentException("Invalid JWT secret key");
+        }
     }
 
     public String createToken(Long userId, String email, UserRole userRole) {
@@ -49,6 +59,12 @@ public class JwtUtil {
     }
 
     public String substringToken(String tokenValue) {
+        if (!StringUtils.hasText(tokenValue)) {
+            throw new IllegalArgumentException("Token must not be null or empty");
+        }
+        if (!tokenValue.startsWith(BEARER_PREFIX)) {
+            throw new IllegalArgumentException("Token does not start with Bearer");
+        }
         if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
             return tokenValue.substring(7);
         }
@@ -56,10 +72,15 @@ public class JwtUtil {
     }
 
     public Claims extractClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            log.error("Failed to parse JWT token: {}", e.getMessage());
+            throw new IllegalArgumentException("Invalid or expired JWT token");
+        }
     }
 }

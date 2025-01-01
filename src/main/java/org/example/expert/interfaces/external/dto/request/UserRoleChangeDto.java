@@ -6,11 +6,11 @@ import org.example.expert.domain.user.UserRole;
 import java.util.Arrays;
 
 @Value
-public class UserRoleChangeVo {
+public class UserRoleChangeDto {
 
     UserRole role;
 
-    public UserRoleChangeVo(String role) {
+    public UserRoleChangeDto(String role) {
         this.role = validateAndConvert(role);
     }
 

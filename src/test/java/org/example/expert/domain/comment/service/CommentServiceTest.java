@@ -6,7 +6,7 @@ import org.example.expert.infrastructure.exception.InvalidRequestException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.Comment;
 import org.example.expert.domain.todo.comment.CommentRepository;
-import org.example.expert.interfaces.external.dto.request.CommentSaveVo;
+import org.example.expert.interfaces.external.dto.request.CommentSaveDto;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class CommentServiceTest {
     public void todoNotFoundWhenCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveVo request = new CommentSaveVo("contents");
+        CommentSaveDto request = new CommentSaveDto("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
 
         given(todoRepository.findById(anyLong())).willReturn(Optional.empty());
@@ -54,7 +54,7 @@ class CommentServiceTest {
     public void successCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveVo request = new CommentSaveVo("contents");
+        CommentSaveDto request = new CommentSaveDto("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
         User user = User.fromAuthUser(authUser);
         Todo todo = new Todo("title", "title", "contents", user);
