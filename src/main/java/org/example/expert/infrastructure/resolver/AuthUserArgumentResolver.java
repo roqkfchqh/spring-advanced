@@ -45,5 +45,4 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
 
 /*TODO
 전역 예외처리 추가, 테스트코드 작성
-주석, aop와 인터셉터를 이용한 로깅
  */

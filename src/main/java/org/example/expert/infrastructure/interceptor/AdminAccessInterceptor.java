@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.example.expert.infrastructure.exception.AuthException;
+import org.example.expert.infrastructure.exception.ForbiddenException;
 import org.example.expert.infrastructure.jwt.JwtUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,9 +21,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
 
         if (token == null || token.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("토큰이 존재하지 않습니다.");
-            return false;
+            throw new AuthException("토큰이 존재하지 않습니다.");
         }
 
         try {
@@ -30,9 +30,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
 
             String userRole = claims.get("userRole", String.class);
             if (!"ADMIN".equals(userRole)) {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.getWriter().write("ADMIN 권한이 없습니다.");
-                return false;
+                throw new ForbiddenException("ADMIN 권한이 없습니다.");
             }
 
             request.setAttribute("startTime", System.currentTimeMillis());
@@ -40,9 +38,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
             return true;
 
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("토큰이 존재하지 않습니다.");
-            return false;
+            throw new AuthException("토큰이 존재하지 않습니다.");
         }
     }
 }
