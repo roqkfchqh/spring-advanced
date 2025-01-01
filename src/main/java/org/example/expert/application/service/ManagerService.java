@@ -27,8 +27,12 @@ public class ManagerService {
         User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 
+        if (todo.getUser() == null) {
+            throw new InvalidRequestException("일정을 만든 유저가 유효하지 않습니다.");
+        }
+
         if (!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
-            throw new InvalidRequestException("담당자를 등록하려고 하는 유저가 일정을 만든 유저가 유효하지 않습니다.");
+            throw new InvalidRequestException("일정을 만든 유저가 유효하지 않습니다.");
         }
 
         User managerUser = EntityFinder.findByIdOrThrow(userRepository, vo.getManagerUserId(), "Manager not found");

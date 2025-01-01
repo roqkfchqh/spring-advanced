@@ -23,9 +23,8 @@ repositories {
     mavenCentral()
 }
 
-tasks.withType(Test).configureEach {
+tasks.test {
     useJUnitPlatform()
-    enabled = false
 }
 
 dependencies {
@@ -59,6 +58,7 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
     //개발용
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
