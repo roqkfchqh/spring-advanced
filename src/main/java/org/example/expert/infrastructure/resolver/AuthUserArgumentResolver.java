@@ -43,4 +43,10 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 }
 
-//TODO: 전역 예외처리 추가, 테스트코드 작성
+/*TODO
+전역 예외처리 추가, 테스트코드 작성
+주석, aop와 인터셉터를 이용한 로깅
+양방향 없애며 생긴 fk 딜리트 로직 추가하기
+response 반환값 재설정 하기
+vo들 final 로 불러오기
+ */

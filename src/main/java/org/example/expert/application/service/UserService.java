@@ -20,7 +20,7 @@ public class UserService {
         return EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
     }
 
-    public void changePassword(long userId, UserChangePasswordVo vo) {
+    public void changePassword(long userId, final UserChangePasswordVo vo) {
 
         User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
 

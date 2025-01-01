@@ -20,7 +20,7 @@ public class TodoService {
     private final WeatherClient weatherClient;
 
     @Transactional
-    public Todo saveTodo(AuthUser authUser, TodoSaveVo vo) {
+    public Todo saveTodo(AuthUser authUser, final TodoSaveVo vo) {
         User user = User.fromAuthUser(authUser);
 
         String weather = weatherClient.getTodayWeather();

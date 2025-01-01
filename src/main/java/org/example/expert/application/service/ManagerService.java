@@ -23,7 +23,7 @@ public class ManagerService {
     private final TodoRepository todoRepository;
 
     @Transactional
-    public Manager saveManager(AuthUser authUser, long todoId, ManagerSaveVo vo) {
+    public Manager saveManager(AuthUser authUser, long todoId, final ManagerSaveVo vo) {
         User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 

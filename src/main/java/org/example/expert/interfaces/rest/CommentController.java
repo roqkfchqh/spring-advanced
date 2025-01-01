@@ -25,7 +25,7 @@ public class CommentController {
     public ResponseEntity<CommentResponse> saveComment(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
-            @Valid @RequestBody CommentSaveVo vo
+            @Valid @RequestBody final CommentSaveVo vo
     ) {
         Comment comment = commentService.saveComment(authUser, todoId, vo);
         return ResponseEntity.ok(commentMapper.toDto(comment));

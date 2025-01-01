@@ -17,13 +17,17 @@ public class AuthController {
     private final AuthManager authManager;
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<String> signup(@Valid @RequestBody SignupVo vo) {
+    public ResponseEntity<String> signup(
+            @Valid @RequestBody final SignupVo vo
+    ) {
         String token = authManager.handleSignup(vo);
         return ResponseEntity.ok(token);
     }
 
     @PostMapping("/auth/signin")
-    public ResponseEntity<String> signin(@Valid @RequestBody SigninVo vo) {
+    public ResponseEntity<String> signin(
+            @Valid @RequestBody final SigninVo vo
+    ) {
         String token = authManager.handleSignin(vo);
         return ResponseEntity.ok(token);
     }

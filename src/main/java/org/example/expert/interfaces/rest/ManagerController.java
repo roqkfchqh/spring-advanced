@@ -28,7 +28,7 @@ public class ManagerController {
     public ResponseEntity<ManagerResponse> saveManager(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
-            @Valid @RequestBody ManagerSaveVo vo
+            @Valid @RequestBody final ManagerSaveVo vo
     ) {
         Manager manager = managerService.saveManager(authUser, todoId, vo);
         return ResponseEntity.ok(managerMapper.toDto(manager));

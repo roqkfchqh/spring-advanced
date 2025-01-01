@@ -20,7 +20,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public Comment saveComment(AuthUser authUser, long todoId, CommentSaveVo vo) {
+    public Comment saveComment(AuthUser authUser, long todoId, final CommentSaveVo vo) {
         User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 

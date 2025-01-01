@@ -13,7 +13,7 @@ public class UserAdminService {
 
     private final UserRepository userRepository;
 
-    public void changeUserRole(long userId, UserRoleChangeVo vo) {
+    public void changeUserRole(long userId, final UserRoleChangeVo vo) {
         User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
         user.updateRole(vo.getRole());
         userRepository.save(user);
