@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.common.exception.AuthException;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.common.exception.ForbiddenException;
 import org.example.expert.infrastructure.jwt.JwtUtil;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
 
         if (token == null || token.isEmpty()) {
-            throw new AuthException("토큰이 존재하지 않습니다.");
+            throw new AuthException(ErrorCode.INVALID_TOKEN);
         }
 
         try {
@@ -30,7 +31,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
 
             String userRole = claims.get("userRole", String.class);
             if (!"ADMIN".equals(userRole)) {
-                throw new ForbiddenException("ADMIN 권한이 없습니다.");
+                throw new ForbiddenException(ErrorCode.FORBIDDEN_OPERATION);
             }
 
             request.setAttribute("startTime", System.currentTimeMillis());
@@ -38,7 +39,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
             return true;
 
         } catch (Exception e) {
-            throw new AuthException("토큰이 존재하지 않습니다.");
+            throw new AuthException(ErrorCode.INVALID_TOKEN);
         }
     }
 }

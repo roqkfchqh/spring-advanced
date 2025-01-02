@@ -1,6 +1,7 @@
 package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.user.*;
 import org.example.expert.infrastructure.encoder.PasswordEncoder;
 import org.example.expert.common.exception.AuthException;
@@ -18,7 +19,7 @@ public class AuthService {
 
     public User signup(final SignupRequestDto dto) {
         if (userRepository.existsByEmail(dto.email())) {
-            throw new InvalidRequestException("이미 존재하는 이메일입니다.");
+            throw new InvalidRequestException(ErrorCode.ALREADY_USED_EMAIL);
         }
 
         User newUser = new User(
@@ -32,10 +33,10 @@ public class AuthService {
 
     public User signin(final SigninRequestDto dto) {
         User user = userRepository.findByEmail(dto.email()).orElseThrow(
-                () -> new InvalidRequestException("이메일 또는 비밀번호가 잘못되었습니다."));
+                () -> new InvalidRequestException(ErrorCode.USER_NOT_FOUND));
 
         if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
-            throw new AuthException("이메일 또는 비밀번호가 잘못되었습니다.");
+            throw new AuthException(ErrorCode.WRONG_EMAIL_OR_PASSWORD);
         }
 
         return user;

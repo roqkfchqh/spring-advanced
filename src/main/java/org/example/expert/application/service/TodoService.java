@@ -2,6 +2,7 @@ package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.todo.*;
 import org.example.expert.presentation.external.dto.request.TodoSaveRequestDto;
 import org.example.expert.presentation.external.weather.WeatherClient;
@@ -40,6 +41,6 @@ public class TodoService {
     }
 
     public Todo getTodo(long todoId) {
-        return EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
+        return EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
     }
 }

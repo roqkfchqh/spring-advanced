@@ -3,6 +3,7 @@ package org.example.expert.application.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
@@ -25,20 +26,16 @@ public class ManagerService {
     @Transactional
     public Manager saveManager(AuthUser authUser, long todoId, final ManagerSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
 
-        if (todo.getUser() == null) {
-            throw new InvalidRequestException("일정을 만든 유저가 유효하지 않습니다.");
+        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
+            throw new InvalidRequestException(ErrorCode.USER_NOT_VALID);
         }
 
-        if (!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
-            throw new InvalidRequestException("일정을 만든 유저가 유효하지 않습니다.");
-        }
-
-        User managerUser = EntityFinder.findByIdOrThrow(userRepository, dto.managerUserId(), "Manager not found");
+        User managerUser = EntityFinder.findByIdOrThrow(userRepository, dto.managerUserId(), ErrorCode.MANAGER_NOT_FOUND);
 
         if (ObjectUtils.nullSafeEquals(user.getId(), managerUser.getId())) {
-            throw new InvalidRequestException("일정 작성자는 본인을 담당자로 등록할 수 없습니다.");
+            throw new InvalidRequestException(ErrorCode.USER_MANAGER_CANNOT);
         }
 
         Manager newManagerUser = new Manager(managerUser, todo);
@@ -47,23 +44,23 @@ public class ManagerService {
     }
 
     public List<Manager> getManagers(long todoId) {
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
 
         return managerRepository.findAllByTodoId(todo.getId());
     }
 
     public void deleteManager(long userId, long todoId, long managerId) {
-        User user = EntityFinder.findByIdOrThrow(userRepository, userId, "User not found");
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
+        User user = EntityFinder.findByIdOrThrow(userRepository, userId, ErrorCode.USER_NOT_FOUND);
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
 
         if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
-            throw new InvalidRequestException("해당 일정을 만든 유저가 유효하지 않습니다.");
+            throw new InvalidRequestException(ErrorCode.USER_NOT_VALID);
         }
 
-        Manager manager = EntityFinder.findByIdOrThrow(managerRepository, managerId, "Manager not found");
+        Manager manager = EntityFinder.findByIdOrThrow(managerRepository, managerId, ErrorCode.MANAGER_NOT_FOUND);
 
         if (!ObjectUtils.nullSafeEquals(todo.getId(), manager.getTodo().getId())) {
-            throw new InvalidRequestException("해당 일정에 등록된 담당자가 아닙니다.");
+            throw new InvalidRequestException(ErrorCode.TODO_MANAGER_VALID);
         }
 
         managerRepository.delete(manager);

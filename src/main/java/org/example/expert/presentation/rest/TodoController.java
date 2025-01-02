@@ -2,6 +2,7 @@ package org.example.expert.presentation.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
@@ -55,7 +56,7 @@ public class TodoController {
     //helper
     private Pageable validatePageSize(int page, int size) {
         if (page < 1 || size < 1) {
-            throw new InvalidRequestException("페이지 입력값이 잘못되었습니다.");
+            throw new InvalidRequestException(ErrorCode.PAGING_ERROR);
         }
         return PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
     }

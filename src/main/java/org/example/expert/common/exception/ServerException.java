@@ -1,8 +1,8 @@
 package org.example.expert.common.exception;
 
-public class ServerException extends RuntimeException {
+public class ServerException extends BaseException {
 
-    public ServerException(String message) {
-        super(message);
+    public ServerException(ErrorCode errorCode) {
+        super(errorCode.getMessage(), errorCode.getStatus());
     }
 }

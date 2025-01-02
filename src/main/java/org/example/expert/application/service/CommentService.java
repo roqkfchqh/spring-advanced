@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.application.helper.EntityValidator;
+import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.*;
@@ -22,7 +23,7 @@ public class CommentService {
     @Transactional
     public Comment saveComment(AuthUser authUser, long todoId, final CommentSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
+        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
 
         Comment newComment = new Comment(
                 dto.contents(),
@@ -34,7 +35,7 @@ public class CommentService {
     }
 
     public List<Comment> getComments(long todoId) {
-        EntityValidator.isExistsById(todoRepository, todoId, "Todo not found");
+        EntityValidator.isExistsById(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
         return commentRepository.findAllByTodoId(todoId);
     }
 }
