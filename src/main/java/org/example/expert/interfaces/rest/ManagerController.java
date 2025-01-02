@@ -7,7 +7,7 @@ import org.example.expert.domain.user.manager.Manager;
 import org.example.expert.infrastructure.jwt.JwtUtil;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.interfaces.external.dto.request.ManagerSaveDto;
+import org.example.expert.interfaces.external.dto.request.ManagerSaveRequestDto;
 import org.example.expert.interfaces.external.dto.response.ManagerResponse;
 import org.example.expert.application.service.ManagerService;
 import org.example.expert.interfaces.external.mapper.ManagerMapper;
@@ -28,7 +28,7 @@ public class ManagerController {
     public ResponseEntity<ManagerResponse> saveManager(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
-            @Valid @RequestBody final ManagerSaveDto dto
+            @Valid @RequestBody final ManagerSaveRequestDto dto
     ) {
         Manager manager = managerService.saveManager(authUser, todoId, dto);
         return ResponseEntity.ok(managerMapper.toDto(manager));

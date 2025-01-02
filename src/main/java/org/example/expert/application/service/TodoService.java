@@ -3,7 +3,7 @@ package org.example.expert.application.service;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.todo.*;
-import org.example.expert.interfaces.external.dto.request.TodoSaveDto;
+import org.example.expert.interfaces.external.dto.request.TodoSaveRequestDto;
 import org.example.expert.interfaces.external.weather.WeatherClient;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.user.User;
@@ -20,14 +20,14 @@ public class TodoService {
     private final WeatherClient weatherClient;
 
     @Transactional
-    public Todo saveTodo(AuthUser authUser, final TodoSaveDto dto) {
+    public Todo saveTodo(AuthUser authUser, final TodoSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
 
         String weather = weatherClient.getTodayWeather();
 
         Todo newTodo = new Todo(
-                dto.getTitle(),
-                dto.getContents(),
+                dto.title(),
+                dto.contents(),
                 weather,
                 user
         );

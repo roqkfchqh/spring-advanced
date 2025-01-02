@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.example.expert.infrastructure.exception.ServerException;
 import org.example.expert.domain.user.UserRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -68,7 +67,7 @@ public class JwtUtil {
         if (StringUtils.hasText(tokenValue) && tokenValue.startsWith(BEARER_PREFIX)) {
             return tokenValue.substring(7);
         }
-        throw new ServerException("Not Found Token");
+        throw new IllegalArgumentException("Not Found Token");
     }
 
     public Claims extractClaims(String token) {
@@ -83,4 +82,6 @@ public class JwtUtil {
             throw new IllegalArgumentException("Invalid or expired JWT token");
         }
     }
+
+    //TODO: List 반환형 고민하기 ( 디코에 있음)
 }

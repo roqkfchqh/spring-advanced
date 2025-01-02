@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.exception;
+package org.example.expert.common.exception;
 
 public class ForbiddenException extends RuntimeException {
     public ForbiddenException(String message) {

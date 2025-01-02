@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.config;
+package org.example.expert.common.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.infrastructure.jwt.JwtFilter;

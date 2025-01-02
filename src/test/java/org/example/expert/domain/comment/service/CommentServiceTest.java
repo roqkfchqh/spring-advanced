@@ -2,11 +2,11 @@ package org.example.expert.domain.comment.service;
 
 import org.example.expert.application.service.CommentService;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.infrastructure.exception.InvalidRequestException;
+import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.Comment;
 import org.example.expert.domain.todo.comment.CommentRepository;
-import org.example.expert.interfaces.external.dto.request.CommentSaveDto;
+import org.example.expert.interfaces.external.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class CommentServiceTest {
     public void todoNotFoundWhenCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveDto request = new CommentSaveDto("contents");
+        CommentSaveRequestDto request = new CommentSaveRequestDto("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
 
         given(todoRepository.findById(anyLong())).willReturn(Optional.empty());
@@ -54,11 +54,11 @@ class CommentServiceTest {
     public void successCreateComment() {
         // given
         long todoId = 1;
-        CommentSaveDto request = new CommentSaveDto("contents");
+        CommentSaveRequestDto request = new CommentSaveRequestDto("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
         User user = User.fromAuthUser(authUser);
         Todo todo = new Todo("title", "title", "contents", user);
-        Comment comment = new Comment(request.getContents(), user, todo);
+        Comment comment = new Comment(request.contents(), user, todo);
 
         given(todoRepository.findById(anyLong())).willReturn(Optional.of(todo));
         given(commentRepository.save(any())).willReturn(comment);
@@ -68,7 +68,7 @@ class CommentServiceTest {
 
         // then
         assertNotNull(result);
-        assertEquals(request.getContents(), result.getContents());
+        assertEquals(request.contents(), result.getContents());
         assertEquals(user.getId(), result.getUser().getId());
         assertEquals(todo.getId(), result.getTodo().getId());
         assertEquals(user.getEmail(), result.getUser().getEmail());

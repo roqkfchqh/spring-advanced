@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @RequiredArgsConstructor
-public class CommentResponse {
+public class CommentResponseDto {
 
     private final Long id;
     private final String contents;

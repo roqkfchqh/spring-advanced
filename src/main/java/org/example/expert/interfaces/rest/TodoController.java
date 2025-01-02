@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.user.auth.Auth;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.infrastructure.exception.InvalidRequestException;
-import org.example.expert.interfaces.external.dto.request.TodoSaveDto;
+import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.interfaces.external.dto.request.TodoSaveRequestDto;
 import org.example.expert.interfaces.external.dto.response.TodoResponse;
 import org.example.expert.application.service.TodoService;
 import org.example.expert.interfaces.external.mapper.TodoMapper;
@@ -27,7 +27,7 @@ public class TodoController {
     @PostMapping("/todos")
     public ResponseEntity<TodoResponse> saveTodo(
             @Auth AuthUser authUser,
-            @Valid @RequestBody final TodoSaveDto dto
+            @Valid @RequestBody final TodoSaveRequestDto dto
     ) {
         Todo todo = todoService.saveTodo(authUser, dto);
         return ResponseEntity.ok(todoMapper.toDto(todo));

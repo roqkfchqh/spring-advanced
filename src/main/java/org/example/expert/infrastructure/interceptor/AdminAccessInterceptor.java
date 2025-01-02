@@ -4,8 +4,8 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.infrastructure.exception.AuthException;
-import org.example.expert.infrastructure.exception.ForbiddenException;
+import org.example.expert.common.exception.AuthException;
+import org.example.expert.common.exception.ForbiddenException;
 import org.example.expert.infrastructure.jwt.JwtUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,7 +17,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
     private final JwtUtil jwtUtil;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         String token = request.getHeader("Authorization");
 
         if (token == null || token.isEmpty()) {

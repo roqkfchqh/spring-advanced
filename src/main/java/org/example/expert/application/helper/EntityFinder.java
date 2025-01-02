@@ -1,6 +1,6 @@
 package org.example.expert.application.helper;
 
-import org.example.expert.infrastructure.exception.InvalidRequestException;
+import org.example.expert.common.exception.InvalidRequestException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class EntityFinder {

@@ -4,12 +4,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.auth.AuthUser;
-import org.example.expert.infrastructure.exception.InvalidRequestException;
+import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.manager.*;
-import org.example.expert.interfaces.external.dto.request.ManagerSaveDto;
+import org.example.expert.interfaces.external.dto.request.ManagerSaveRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -23,7 +23,7 @@ public class ManagerService {
     private final TodoRepository todoRepository;
 
     @Transactional
-    public Manager saveManager(AuthUser authUser, long todoId, final ManagerSaveDto dto) {
+    public Manager saveManager(AuthUser authUser, long todoId, final ManagerSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, "Todo not found");
 
@@ -35,7 +35,7 @@ public class ManagerService {
             throw new InvalidRequestException("일정을 만든 유저가 유효하지 않습니다.");
         }
 
-        User managerUser = EntityFinder.findByIdOrThrow(userRepository, dto.getManagerUserId(), "Manager not found");
+        User managerUser = EntityFinder.findByIdOrThrow(userRepository, dto.managerUserId(), "Manager not found");
 
         if (ObjectUtils.nullSafeEquals(user.getId(), managerUser.getId())) {
             throw new InvalidRequestException("일정 작성자는 본인을 담당자로 등록할 수 없습니다.");
