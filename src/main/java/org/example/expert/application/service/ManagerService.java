@@ -45,12 +45,11 @@ public class ManagerService {
 
     public List<Manager> getManagers(long todoId) {
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
-
         return managerRepository.findAllByTodoId(todo.getId());
     }
 
-    public void deleteManager(long userId, long todoId, long managerId) {
-        User user = EntityFinder.findByIdOrThrow(userRepository, userId, ErrorCode.USER_NOT_FOUND);
+    public void deleteManager(AuthUser authUser, long todoId, long managerId) {
+        User user = User.fromAuthUser(authUser);
         Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
 
         if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
