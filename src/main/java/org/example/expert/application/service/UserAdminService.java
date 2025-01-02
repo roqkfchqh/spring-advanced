@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRepository;
-import org.example.expert.interfaces.external.dto.request.UserRoleChangeRequestDto;
+import org.example.expert.presentation.external.dto.request.UserRoleChangeRequestDto;
 import org.springframework.stereotype.Service;
 
 @Service

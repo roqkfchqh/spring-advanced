@@ -16,7 +16,7 @@ import org.example.expert.domain.todo.Todo;
 import org.example.expert.domain.todo.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.domain.user.manager.*;
-import org.example.expert.interfaces.external.dto.request.ManagerSaveRequestDto;
+import org.example.expert.presentation.external.dto.request.ManagerSaveRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -5,8 +5,8 @@ import org.example.expert.domain.user.*;
 import org.example.expert.infrastructure.encoder.PasswordEncoder;
 import org.example.expert.common.exception.AuthException;
 import org.example.expert.common.exception.InvalidRequestException;
-import org.example.expert.interfaces.external.dto.request.SigninRequestDto;
-import org.example.expert.interfaces.external.dto.request.SignupRequestDto;
+import org.example.expert.presentation.external.dto.request.SigninRequestDto;
+import org.example.expert.presentation.external.dto.request.SignupRequestDto;
 import org.springframework.stereotype.Service;
 
 @Service

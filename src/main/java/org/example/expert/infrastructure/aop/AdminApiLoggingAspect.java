@@ -21,8 +21,8 @@ public class AdminApiLoggingAspect {
     private final JwtUtil jwtUtil;
     private final HttpServletRequest request;
 
-    @Around("execution(* org.example.expert.interfaces.rest.CommentAdminController.deleteComment(..)) || " +
-            "execution(* org.example.expert.interfaces.rest.UserAdminController.changeUserRole(..))")
+    @Around("execution(* org.example.expert.presentation.rest.CommentAdminController.deleteComment(..)) || " +
+            "execution(* org.example.expert.presentation.rest.UserAdminController.changeUserRole(..))")
     public Object logAdminApi(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 

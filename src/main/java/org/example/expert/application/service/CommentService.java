@@ -7,7 +7,7 @@ import org.example.expert.application.helper.EntityValidator;
 import org.example.expert.domain.user.auth.AuthUser;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.*;
-import org.example.expert.interfaces.external.dto.request.CommentSaveRequestDto;
+import org.example.expert.presentation.external.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

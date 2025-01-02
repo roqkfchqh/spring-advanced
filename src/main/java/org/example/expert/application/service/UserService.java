@@ -3,7 +3,7 @@ package org.example.expert.application.service;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.helper.EntityFinder;
 import org.example.expert.domain.user.User;
-import org.example.expert.interfaces.external.dto.request.UserChangePasswordRequestDto;
+import org.example.expert.presentation.external.dto.request.UserChangePasswordRequestDto;
 import org.example.expert.domain.user.UserRepository;
 import org.example.expert.infrastructure.encoder.PasswordEncoder;
 import org.example.expert.common.exception.InvalidRequestException;

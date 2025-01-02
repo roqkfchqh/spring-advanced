@@ -6,7 +6,7 @@ import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.comment.Comment;
 import org.example.expert.domain.todo.comment.CommentRepository;
-import org.example.expert.interfaces.external.dto.request.CommentSaveRequestDto;
+import org.example.expert.presentation.external.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;
