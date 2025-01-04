@@ -29,12 +29,13 @@ public class UserController {
     }
 
     @PutMapping("/users")
-    public void changePassword(
+    public ResponseEntity<String> changePassword(
             @Auth AuthUser authUser,
             @RequestBody UserChangePasswordRequestDto dto
     ) {
         validateManager.validateChangePassword(dto.oldPassword(), dto.newPassword());
 
         userService.changePassword(authUser.getId(), dto);
+        return ResponseEntity.ok("비밀번호가 변경되었습니다.");
     }
 }

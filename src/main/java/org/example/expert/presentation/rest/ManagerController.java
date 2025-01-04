@@ -46,11 +46,12 @@ public class ManagerController {
     }
 
     @DeleteMapping("/todos/{todoId}/managers/{managerId}")
-    public void deleteManager(
+    public ResponseEntity<String> deleteManager(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
             @PathVariable long managerId
     ) {
         managerService.deleteManager(authUser, todoId, managerId);
+        return ResponseEntity.ok(todoId + "번 게시물의 " + managerId + "번 관리자가 정상적으로 삭제되었습니다.");
     }
 }
