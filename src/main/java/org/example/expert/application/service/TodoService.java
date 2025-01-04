@@ -1,12 +1,14 @@
 package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.application.dto.response.TodoResponse;
+import org.example.expert.application.mapper.Mapper;
+import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.todo.*;
-import org.example.expert.presentation.external.dto.request.TodoSaveRequestDto;
-import org.example.expert.presentation.external.weather.WeatherClient;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.application.dto.request.TodoSaveRequestDto;
+import org.example.expert.infrastructure.external.WeatherClient;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +21,11 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
+    private final Mapper<Todo, TodoResponse> mapper;
 
     @Transactional
-    public Todo saveTodo(AuthUser authUser, final TodoSaveRequestDto dto) {
+    public TodoResponse saveTodo(AuthUser authUser, final TodoSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
-
         String weather = weatherClient.getTodayWeather();
 
         Todo newTodo = new Todo(
@@ -32,15 +34,17 @@ public class TodoService {
                 weather,
                 user
         );
-
-        return todoRepository.save(newTodo);
+        todoRepository.save(newTodo);
+        return mapper.toDto(newTodo);
     }
 
-    public Page<Todo> getTodos(Pageable pageable) {
-        return todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+    public Page<TodoResponse> getTodos(Pageable pageable) {
+        Page<Todo> todos= todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        return todos.map(mapper::toDto);
     }
 
-    public Todo getTodo(long todoId) {
-        return EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
+    public TodoResponse getTodo(long todoId) {
+        Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
+        return mapper.toDto(todo);
     }
 }

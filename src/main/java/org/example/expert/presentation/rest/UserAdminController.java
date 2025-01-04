@@ -1,9 +1,9 @@
 package org.example.expert.presentation.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.manager.ValidateManager;
-import org.example.expert.presentation.external.dto.request.UserRoleChangeRequestDto;
+import org.example.expert.application.dto.request.UserRoleChangeRequestDto;
 import org.example.expert.application.service.UserAdminService;
+import org.example.expert.presentation.utils.ValidateManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

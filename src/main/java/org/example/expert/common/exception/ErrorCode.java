@@ -14,14 +14,14 @@ public enum ErrorCode {
     ALREADY_USED_EMAIL(HttpStatus.BAD_REQUEST, "이미 사용중인 이메일입니다."),
     WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호를 잘못 입력하였습니다."),
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "존재하지 않는 사용자입니다."),
-    USER_NOT_VALID(HttpStatus.BAD_REQUEST, "일정을 만든 유저가 유효하지 않습니다."),
+    TODO_USER_NOT_VALID(HttpStatus.BAD_REQUEST, "일정 작성자가 아닙니다."),
     USER_MANAGER_CANNOT(HttpStatus.BAD_REQUEST, "일정 작성자는 본인을 담당자로 등록할 수 없습니다."),
     NICKNAME_REQUIRED(HttpStatus.BAD_REQUEST, "닉네임 입력값이 잘못되었습니다."),
     PASSWORD_REQUIRED(HttpStatus.BAD_REQUEST, "비밀번호 입력값이 잘못되었습니다."),
     COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 댓글이 존재하지 않습니다."),
     TODO_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 게시글이 존재하지 않습니다."),
     MANAGER_NOT_FOUND(HttpStatus.BAD_REQUEST, "매니저가 존재하지 않습니다."),
-    TODO_MANAGER_VALID(HttpStatus.BAD_REQUEST, "해당 일정에 등록된 담당자가 아닙니다."),
+    TODO_MANAGER_NOT_VALID(HttpStatus.BAD_REQUEST, "해당 일정에 등록된 담당자가 아닙니다."),
 
     //401
     WRONG_EMAIL_OR_PASSWORD(HttpStatus.UNAUTHORIZED, "이메일이나 비밀번호를 잘못 입력하였습니다."),

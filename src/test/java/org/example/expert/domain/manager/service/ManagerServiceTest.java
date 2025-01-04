@@ -9,14 +9,17 @@ import static org.mockito.BDDMockito.given;
 import java.util.List;
 import java.util.Optional;
 
+import org.example.expert.application.dto.response.ManagerResponse;
+import org.example.expert.domain.todo.Manager;
+import org.example.expert.infrastructure.repository.ManagerRepository;
+import org.example.expert.infrastructure.repository.UserRepository;
 import org.example.expert.application.service.ManagerService;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
-import org.example.expert.domain.todo.TodoRepository;
+import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.domain.user.*;
-import org.example.expert.domain.user.manager.*;
-import org.example.expert.presentation.external.dto.request.ManagerSaveRequestDto;
+import org.example.expert.application.dto.request.ManagerSaveRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -69,7 +72,7 @@ class ManagerServiceTest {
         assertEquals("일정을 만든 유저가 유효하지 않습니다.", exception.getMessage());
     }
 
-    @Test // 테스트코드 샘플
+    @Test
     public void successGetManagers() {
         // given
         long todoId = 1L;
@@ -84,15 +87,15 @@ class ManagerServiceTest {
         given(managerRepository.findAllByTodoId(todoId)).willReturn(managerList);
 
         // when
-        List<Manager> managerResponses = managerService.getManagers(todoId);
+        List<ManagerResponse> managerResponses = managerService.getManagers(todoId);
 
         // then
         assertEquals(1, managerResponses.size());
-        assertEquals(mockManager.getId(), managerResponses.get(0).getId());
-        assertEquals(mockManager.getUser().getEmail(), managerResponses.get(0).getUser().getEmail());
+        assertEquals(mockManager.getId(), managerResponses.get(0).id());
+        assertEquals(mockManager.getUser().getEmail(), managerResponses.get(0).user().email());
     }
 
-    @Test // 테스트코드 샘플
+    @Test
     void successCreateTodo() {
         // given
         AuthUser authUser = new AuthUser(1L, "a@a.com", UserRole.USER);
@@ -112,11 +115,11 @@ class ManagerServiceTest {
         given(managerRepository.save(any(Manager.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        Manager response = managerService.saveManager(authUser, todoId, managerSaveRequest);
+        ManagerResponse response = managerService.saveManager(authUser, todoId, managerSaveRequest);
 
         // then
         assertNotNull(response);
-        assertEquals(managerUser.getId(), response.getUser().getId());
-        assertEquals(managerUser.getEmail(), response.getUser().getEmail());
+        assertEquals(managerUser.getId(), response.user().id());
+        assertEquals(managerUser.getEmail(), response.user().email());
     }
 }

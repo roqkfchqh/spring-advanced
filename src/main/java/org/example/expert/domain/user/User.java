@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.domain.common.Timestamped;
 
 @Getter

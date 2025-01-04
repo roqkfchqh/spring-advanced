@@ -1,14 +1,17 @@
 package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.application.dto.response.UserResponse;
+import org.example.expert.application.mapper.Mapper;
 import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.user.User;
-import org.example.expert.presentation.external.dto.request.UserChangePasswordRequestDto;
-import org.example.expert.domain.user.UserRepository;
-import org.example.expert.infrastructure.encoder.PasswordEncoder;
+import org.example.expert.application.dto.request.UserChangePasswordRequestDto;
+import org.example.expert.infrastructure.repository.UserRepository;
+import org.example.expert.infrastructure.security.PasswordEncoder;
 import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.presentation.utils.AuthUser;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,20 +19,21 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final Mapper<User, UserResponse> mapper;
 
-    public User getUser(long userId) {
-        return EntityFinder.findByIdOrThrow(userRepository, userId, ErrorCode.USER_NOT_FOUND);
+    public UserResponse getUser(long userId) {
+        User user = userRepository.findByIdOrThrow(userId, ErrorCode.USER_NOT_FOUND);
+        return mapper.toDto(user);
     }
 
-    public void changePassword(long userId, final UserChangePasswordRequestDto dto) {
-
-        User user = EntityFinder.findByIdOrThrow(userRepository, userId, ErrorCode.USER_NOT_FOUND);
+    @Transactional
+    public void changePassword(AuthUser authUser, final UserChangePasswordRequestDto dto) {
+        User user = userRepository.findByIdOrThrow(authUser.getId(), ErrorCode.USER_NOT_FOUND);
 
         if (!passwordEncoder.matches(dto.oldPassword(), user.getPassword())) {
             throw new InvalidRequestException(ErrorCode.WRONG_PASSWORD);
         }
 
         user.changePassword(passwordEncoder.encode(dto.newPassword()));
-        userRepository.save(user);
     }
 }

@@ -3,9 +3,9 @@ package org.example.expert.application.manager;
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.service.AuthService;
 import org.example.expert.domain.user.User;
-import org.example.expert.presentation.external.dto.request.SigninRequestDto;
-import org.example.expert.presentation.external.dto.request.SignupRequestDto;
-import org.example.expert.application.tokenprovider.TokenProvider;
+import org.example.expert.application.dto.request.SigninRequestDto;
+import org.example.expert.application.dto.request.SignupRequestDto;
+import org.example.expert.application.security.TokenProvider;
 import org.springframework.stereotype.Component;
 
 @Component

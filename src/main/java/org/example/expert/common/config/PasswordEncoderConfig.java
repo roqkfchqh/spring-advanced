@@ -1,6 +1,6 @@
 package org.example.expert.common.config;
 
-import org.example.expert.infrastructure.encoder.PasswordEncoder;
+import org.example.expert.infrastructure.security.PasswordEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

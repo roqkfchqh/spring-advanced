@@ -2,15 +2,18 @@ package org.example.expert.application.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.helper.EntityFinder;
+import org.example.expert.application.dto.response.ManagerResponse;
+import org.example.expert.application.mapper.Mapper;
+import org.example.expert.domain.todo.Manager;
+import org.example.expert.infrastructure.repository.ManagerRepository;
+import org.example.expert.infrastructure.repository.UserRepository;
 import org.example.expert.common.exception.ErrorCode;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
-import org.example.expert.domain.todo.TodoRepository;
+import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.domain.user.*;
-import org.example.expert.domain.user.manager.*;
-import org.example.expert.presentation.external.dto.request.ManagerSaveRequestDto;
+import org.example.expert.application.dto.request.ManagerSaveRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -22,44 +25,47 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final UserRepository userRepository;
     private final TodoRepository todoRepository;
+    private final Mapper<Manager, ManagerResponse> mapper;
 
     @Transactional
-    public Manager saveManager(AuthUser authUser, long todoId, final ManagerSaveRequestDto dto) {
-        User user = User.fromAuthUser(authUser);
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
+    public ManagerResponse saveManager(AuthUser authUser, long todoId, final ManagerSaveRequestDto dto) {
+        Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
 
-        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
-            throw new InvalidRequestException(ErrorCode.USER_NOT_VALID);
+        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.getId(), todo.getUser().getId())) {
+            throw new InvalidRequestException(ErrorCode.TODO_USER_NOT_VALID);
         }
 
-        User managerUser = EntityFinder.findByIdOrThrow(userRepository, dto.managerUserId(), ErrorCode.MANAGER_NOT_FOUND);
+        User managerUser = userRepository.findByIdOrThrow(dto.managerUserId(), ErrorCode.USER_NOT_FOUND);
 
-        if (ObjectUtils.nullSafeEquals(user.getId(), managerUser.getId())) {
+        if (ObjectUtils.nullSafeEquals(authUser.getId(), dto.managerUserId())) {
             throw new InvalidRequestException(ErrorCode.USER_MANAGER_CANNOT);
         }
 
         Manager newManagerUser = new Manager(managerUser, todo);
+        managerRepository.save(newManagerUser);
 
-        return managerRepository.save(newManagerUser);
+        return mapper.toDto(newManagerUser);
     }
 
-    public List<Manager> getManagers(long todoId) {
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
-        return managerRepository.findAllByTodoId(todo.getId());
+    public List<ManagerResponse> getManagers(long todoId) {
+        todoRepository.validateExistsById(todoId, ErrorCode.TODO_NOT_FOUND);
+        List<Manager> manager = managerRepository.findAllByTodoId(todoId);
+        return manager.stream()
+                .map(mapper::toDto)
+                .toList();
     }
 
     public void deleteManager(AuthUser authUser, long todoId, long managerId) {
-        User user = User.fromAuthUser(authUser);
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
+        Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
 
-        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
-            throw new InvalidRequestException(ErrorCode.USER_NOT_VALID);
+        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.getId(), todo.getUser().getId())) {
+            throw new InvalidRequestException(ErrorCode.TODO_USER_NOT_VALID);
         }
 
-        Manager manager = EntityFinder.findByIdOrThrow(managerRepository, managerId, ErrorCode.MANAGER_NOT_FOUND);
+        Manager manager = managerRepository.findByIdOrThrow(managerId, ErrorCode.MANAGER_NOT_FOUND);
 
         if (!ObjectUtils.nullSafeEquals(todo.getId(), manager.getTodo().getId())) {
-            throw new InvalidRequestException(ErrorCode.TODO_MANAGER_VALID);
+            throw new InvalidRequestException(ErrorCode.TODO_MANAGER_NOT_VALID);
         }
 
         managerRepository.delete(manager);

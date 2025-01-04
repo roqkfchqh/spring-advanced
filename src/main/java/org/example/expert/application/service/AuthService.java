@@ -1,13 +1,14 @@
 package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.expert.infrastructure.repository.UserRepository;
 import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.domain.user.*;
-import org.example.expert.infrastructure.encoder.PasswordEncoder;
+import org.example.expert.infrastructure.security.PasswordEncoder;
 import org.example.expert.common.exception.AuthException;
 import org.example.expert.common.exception.InvalidRequestException;
-import org.example.expert.presentation.external.dto.request.SigninRequestDto;
-import org.example.expert.presentation.external.dto.request.SignupRequestDto;
+import org.example.expert.application.dto.request.SigninRequestDto;
+import org.example.expert.application.dto.request.SignupRequestDto;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,12 +1,14 @@
 package org.example.expert.domain.comment.service;
 
+import org.example.expert.application.dto.response.CommentResponseDto;
+import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.application.service.CommentService;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.*;
-import org.example.expert.domain.todo.comment.Comment;
-import org.example.expert.domain.todo.comment.CommentRepository;
-import org.example.expert.presentation.external.dto.request.CommentSaveRequestDto;
+import org.example.expert.domain.todo.Comment;
+import org.example.expert.infrastructure.repository.CommentRepository;
+import org.example.expert.application.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
 import org.example.expert.domain.user.UserRole;
 import org.junit.jupiter.api.Test;
@@ -64,13 +66,12 @@ class CommentServiceTest {
         given(commentRepository.save(any())).willReturn(comment);
 
         // when
-        Comment result = commentService.saveComment(authUser, todoId, request);
+        CommentResponseDto result = commentService.saveComment(authUser, todoId, request);
 
         // then
         assertNotNull(result);
-        assertEquals(request.contents(), result.getContents());
-        assertEquals(user.getId(), result.getUser().getId());
-        assertEquals(todo.getId(), result.getTodo().getId());
-        assertEquals(user.getEmail(), result.getUser().getEmail());
+        assertEquals(request.contents(), result.contents());
+        assertEquals(user.getId(), result.user().id());
+        assertEquals(user.getEmail(), result.user().email());
     }
 }

@@ -2,13 +2,14 @@ package org.example.expert.application.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.application.helper.EntityFinder;
-import org.example.expert.application.helper.EntityValidator;
+import org.example.expert.application.dto.response.CommentResponseDto;
+import org.example.expert.application.mapper.Mapper;
+import org.example.expert.infrastructure.repository.CommentRepository;
+import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.common.exception.ErrorCode;
-import org.example.expert.domain.user.auth.AuthUser;
+import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.domain.todo.*;
-import org.example.expert.domain.todo.comment.*;
-import org.example.expert.presentation.external.dto.request.CommentSaveRequestDto;
+import org.example.expert.application.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,23 +20,27 @@ public class CommentService {
 
     private final TodoRepository todoRepository;
     private final CommentRepository commentRepository;
+    private final Mapper<Comment, CommentResponseDto> mapper;
 
     @Transactional
-    public Comment saveComment(AuthUser authUser, long todoId, final CommentSaveRequestDto dto) {
+    public CommentResponseDto saveComment(AuthUser authUser, long todoId, final CommentSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
-        Todo todo = EntityFinder.findByIdOrThrow(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
-
+        Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
         Comment newComment = new Comment(
                 dto.contents(),
                 user,
                 todo
         );
-
-        return commentRepository.save(newComment);
+        commentRepository.save(newComment);
+        return mapper.toDto(newComment);
     }
 
-    public List<Comment> getComments(long todoId) {
-        EntityValidator.isExistsById(todoRepository, todoId, ErrorCode.TODO_NOT_FOUND);
-        return commentRepository.findAllByTodoId(todoId);
+    public List<CommentResponseDto> getComments(long todoId) {
+        commentRepository.validateExistsById(todoId, ErrorCode.TODO_NOT_FOUND);
+
+        List<Comment> comments = commentRepository.findAllByTodoId(todoId);
+        return comments.stream()
+                .map(mapper::toDto)
+                .toList();
     }
 }
