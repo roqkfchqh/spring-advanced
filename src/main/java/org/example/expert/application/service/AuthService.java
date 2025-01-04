@@ -23,11 +23,7 @@ public class AuthService {
             throw new InvalidRequestException(ErrorCode.ALREADY_USED_EMAIL);
         }
 
-        User newUser = new User(
-                dto.email(),
-                passwordEncoder.encode(dto.password()),
-                dto.userRole()
-        );
+        User newUser = User.of(dto.email(), dto.password(), dto.userRole());
 
         return userRepository.save(newUser);
     }

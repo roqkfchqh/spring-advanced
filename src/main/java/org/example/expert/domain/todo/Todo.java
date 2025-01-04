@@ -23,10 +23,12 @@ public class Todo extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Todo(String title, String contents, String weather, User user) {
-        this.title = title;
-        this.contents = contents;
-        this.weather = weather;
-        this.user = user;
+    public static Todo of(String title, String contents, String weather, User user){
+        Todo todo = new Todo();
+        todo.title = title;
+        todo.contents = contents;
+        todo.weather = weather;
+        todo.user = user;
+        return todo;
     }
 }

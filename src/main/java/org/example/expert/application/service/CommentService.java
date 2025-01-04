@@ -26,13 +26,10 @@ public class CommentService {
     public CommentResponseDto saveComment(AuthUser authUser, long todoId, final CommentSaveRequestDto dto) {
         User user = User.fromAuthUser(authUser);
         Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
-        Comment newComment = new Comment(
-                dto.contents(),
-                user,
-                todo
-        );
-        commentRepository.save(newComment);
-        return mapper.toDto(newComment);
+        Comment comment = Comment.of(dto.contents(), user, todo);
+
+        commentRepository.save(comment);
+        return mapper.toDto(comment);
     }
 
     public List<CommentResponseDto> getComments(long todoId) {

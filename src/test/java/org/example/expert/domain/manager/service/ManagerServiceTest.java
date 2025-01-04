@@ -76,11 +76,11 @@ class ManagerServiceTest {
     public void successGetManagers() {
         // given
         long todoId = 1L;
-        User user = new User("user1@example.com", "password", UserRole.USER);
-        Todo todo = new Todo("Title", "Contents", "Sunny", user);
+        User user = User.of("user1@example.com", "password", UserRole.USER);
+        Todo todo = Todo.of("Title", "Contents", "Sunny", user);
         ReflectionTestUtils.setField(todo, "id", todoId);
 
-        Manager mockManager = new Manager(todo.getUser(), todo);
+        Manager mockManager = Manager.of(todo.getUser(), todo);
         List<Manager> managerList = List.of(mockManager);
 
         given(todoRepository.findById(todoId)).willReturn(Optional.of(todo));
@@ -102,10 +102,10 @@ class ManagerServiceTest {
         User user = User.fromAuthUser(authUser);  // 일정을 만든 유저
 
         long todoId = 1L;
-        Todo todo = new Todo("Test Title", "Test Contents", "Sunny", user);
+        Todo todo = Todo.of("Test Title", "Test Contents", "Sunny", user);
 
         long managerUserId = 2L;
-        User managerUser = new User("b@b.com", "password", UserRole.USER);  // 매니저로 등록할 유저
+        User managerUser = User.of("b@b.com", "password", UserRole.USER);  // 매니저로 등록할 유저
         ReflectionTestUtils.setField(managerUser, "id", managerUserId);
 
         ManagerSaveRequestDto managerSaveRequest = new ManagerSaveRequestDto(managerUserId); // request dto 생성

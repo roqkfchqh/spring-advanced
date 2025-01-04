@@ -24,20 +24,20 @@ public class User extends Timestamped {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    public User(String email, String password, UserRole userRole) {
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-    }
-
-    private User(Long id, String email, UserRole userRole) {
-        this.id = id;
-        this.email = email;
-        this.userRole = userRole;
+    public static User of(String email, String password, UserRole userRole) {
+        User user = new User();
+        user.email = email;
+        user.password = password;
+        user.userRole = userRole;
+        return user;
     }
 
     public static User fromAuthUser(AuthUser authUser) {
-        return new User(authUser.id(), authUser.email(), authUser.userRole());
+        User user = new User();
+        user.id = authUser.id();
+        user.email = authUser.email();
+        user.userRole = authUser.userRole();
+        return user;
     }
 
     public void changePassword(String password) {

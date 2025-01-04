@@ -41,7 +41,7 @@ public class ManagerService {
             throw new InvalidRequestException(ErrorCode.USER_MANAGER_CANNOT);
         }
 
-        Manager newManagerUser = new Manager(managerUser, todo);
+        Manager newManagerUser = Manager.of(managerUser, todo);
         managerRepository.save(newManagerUser);
 
         return mapper.toDto(newManagerUser);

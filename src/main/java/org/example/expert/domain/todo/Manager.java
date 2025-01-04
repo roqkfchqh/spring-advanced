@@ -23,8 +23,10 @@ public class Manager {
     @JoinColumn(name = "todo_id", nullable = false)
     private Todo todo;
 
-    public Manager(User user, Todo todo) {
-        this.user = user;
-        this.todo = todo;
+    public static Manager of(User user, Todo todo){
+        Manager manager = new Manager();
+        manager.user = user;
+        manager.todo = todo;
+        return manager;
     }
 }

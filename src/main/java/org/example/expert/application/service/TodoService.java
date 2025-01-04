@@ -28,12 +28,7 @@ public class TodoService {
         User user = User.fromAuthUser(authUser);
         String weather = weatherClient.getTodayWeather();
 
-        Todo newTodo = new Todo(
-                dto.title(),
-                dto.contents(),
-                weather,
-                user
-        );
+        Todo newTodo = Todo.of(dto.title(), dto.contents(), weather, user);
         todoRepository.save(newTodo);
         return mapper.toDto(newTodo);
     }

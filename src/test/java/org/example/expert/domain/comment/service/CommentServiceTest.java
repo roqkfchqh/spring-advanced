@@ -59,8 +59,8 @@ class CommentServiceTest {
         CommentSaveRequestDto request = new CommentSaveRequestDto("contents");
         AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
         User user = User.fromAuthUser(authUser);
-        Todo todo = new Todo("title", "title", "contents", user);
-        Comment comment = new Comment(request.contents(), user, todo);
+        Todo todo = Todo.of("title", "title", "contents", user);
+        Comment comment = Comment.of(request.contents(), user, todo);
 
         given(todoRepository.findById(anyLong())).willReturn(Optional.of(todo));
         given(commentRepository.save(any())).willReturn(comment);
