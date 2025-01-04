@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.security;
+package org.example.expert.infrastructure.security.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.application.security.TokenProvider;

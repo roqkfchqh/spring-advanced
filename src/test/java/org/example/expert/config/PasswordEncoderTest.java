@@ -1,6 +1,6 @@
 package org.example.expert.config;
 
-import org.example.expert.infrastructure.security.PasswordEncoder;
+import org.example.expert.infrastructure.security.encoder.PasswordEncoder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

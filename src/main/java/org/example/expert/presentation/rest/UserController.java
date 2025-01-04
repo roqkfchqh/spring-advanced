@@ -6,7 +6,6 @@ import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.application.dto.request.UserChangePasswordRequestDto;
 import org.example.expert.application.dto.response.UserResponse;
 import org.example.expert.application.service.UserService;
-import org.example.expert.presentation.utils.ValidateManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final ValidateManager validateManager;
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserResponse> getUser(
@@ -30,8 +28,6 @@ public class UserController {
             @Auth AuthUser authUser,
             @RequestBody UserChangePasswordRequestDto dto
     ) {
-        validateManager.validateChangePassword(dto.oldPassword(), dto.newPassword());
-
         userService.changePassword(authUser, dto);
         return ResponseEntity.ok("비밀번호가 변경되었습니다.");
     }

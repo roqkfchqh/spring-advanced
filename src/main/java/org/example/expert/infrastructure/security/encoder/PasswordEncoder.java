@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.security;
+package org.example.expert.infrastructure.security.encoder;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.security;
+package org.example.expert.infrastructure.security.interceptor;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.common.exception.AuthException;
 import org.example.expert.common.exception.ErrorCode;
 import org.example.expert.common.exception.ForbiddenException;
+import org.example.expert.infrastructure.security.jwt.JwtUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 

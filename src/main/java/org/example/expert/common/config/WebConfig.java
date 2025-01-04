@@ -1,7 +1,7 @@
 package org.example.expert.common.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.infrastructure.security.AdminAccessInterceptor;
+import org.example.expert.infrastructure.security.interceptor.AdminAccessInterceptor;
 import org.example.expert.infrastructure.resolver.AuthUserArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

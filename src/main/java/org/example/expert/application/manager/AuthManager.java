@@ -14,14 +14,17 @@ public class AuthManager {
 
     private final AuthService authService;
     private final TokenProvider tokenProvider;
+    private final ValidationService validationService;
 
-    public String handleSignup(SignupRequestDto vo) {
-        User user = authService.signup(vo);
+    public String handleSignup(SignupRequestDto dto) {
+        validationService.validateSignup(dto.email(), dto.password(), dto.userRole());
+        User user = authService.signup(dto);
         return tokenProvider.createToken(user.getId(), user.getEmail(), user.getUserRole());
     }
 
-    public String handleSignin(SigninRequestDto vo) {
-        User user = authService.signin(vo);
+    public String handleSignin(SigninRequestDto dto) {
+        validationService.validateSignin(dto.email(), dto.password());
+        User user = authService.signin(dto);
         return tokenProvider.createToken(user.getId(), user.getEmail(), user.getUserRole());
     }
 }

@@ -31,13 +31,13 @@ public class ManagerService {
     public ManagerResponse saveManager(AuthUser authUser, long todoId, final ManagerSaveRequestDto dto) {
         Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
 
-        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.getId(), todo.getUser().getId())) {
+        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.id(), todo.getUser().getId())) {
             throw new InvalidRequestException(ErrorCode.TODO_USER_NOT_VALID);
         }
 
         User managerUser = userRepository.findByIdOrThrow(dto.managerUserId(), ErrorCode.USER_NOT_FOUND);
 
-        if (ObjectUtils.nullSafeEquals(authUser.getId(), dto.managerUserId())) {
+        if (ObjectUtils.nullSafeEquals(authUser.id(), dto.managerUserId())) {
             throw new InvalidRequestException(ErrorCode.USER_MANAGER_CANNOT);
         }
 
@@ -58,7 +58,7 @@ public class ManagerService {
     public void deleteManager(AuthUser authUser, long todoId, long managerId) {
         Todo todo = todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND);
 
-        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.getId(), todo.getUser().getId())) {
+        if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(authUser.id(), todo.getUser().getId())) {
             throw new InvalidRequestException(ErrorCode.TODO_USER_NOT_VALID);
         }
 
