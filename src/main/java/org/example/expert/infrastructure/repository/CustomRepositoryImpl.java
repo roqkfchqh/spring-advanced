@@ -1,8 +1,8 @@
 package org.example.expert.infrastructure.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.common.exception.ErrorCode;
-import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.common.exception.base.ErrorCode;
+import org.example.expert.common.exception.business.InvalidRequestException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @RequiredArgsConstructor

@@ -2,10 +2,10 @@ package org.example.expert.presentation.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.expert.common.exception.ErrorCode;
+import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.presentation.utils.Auth;
 import org.example.expert.presentation.utils.AuthUser;
-import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.common.exception.business.InvalidRequestException;
 import org.example.expert.application.dto.request.TodoSaveRequestDto;
 import org.example.expert.application.dto.response.TodoResponse;
 import org.example.expert.application.service.TodoService;

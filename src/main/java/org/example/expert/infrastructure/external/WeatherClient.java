@@ -1,7 +1,7 @@
 package org.example.expert.infrastructure.external;
 
-import org.example.expert.common.exception.ErrorCode;
-import org.example.expert.common.exception.ServerException;
+import org.example.expert.common.exception.base.ErrorCode;
+import org.example.expert.common.exception.system.ServerException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,7 @@ import org.example.expert.application.dto.response.CommentResponseDto;
 import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.application.service.CommentService;
 import org.example.expert.presentation.utils.AuthUser;
-import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.common.exception.business.InvalidRequestException;
 import org.example.expert.domain.todo.*;
 import org.example.expert.domain.todo.Comment;
 import org.example.expert.infrastructure.repository.CommentRepository;

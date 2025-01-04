@@ -1,8 +1,8 @@
 package org.example.expert.infrastructure.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.example.expert.common.exception.AuthException;
-import org.example.expert.common.exception.ErrorCode;
+import org.example.expert.common.exception.business.AuthException;
+import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.presentation.utils.Auth;
 import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.domain.user.UserRole;
@@ -43,7 +43,3 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         return new AuthUser(userId, email, userRole);
     }
 }
-
-/*TODO
-전역 예외처리 추가, 테스트코드 작성
- */

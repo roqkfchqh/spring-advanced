@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.application.dto.response.TodoResponse;
 import org.example.expert.application.mapper.Mapper;
 import org.example.expert.infrastructure.repository.TodoRepository;
-import org.example.expert.common.exception.ErrorCode;
+import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.domain.todo.*;
 import org.example.expert.application.dto.request.TodoSaveRequestDto;
 import org.example.expert.infrastructure.external.WeatherClient;

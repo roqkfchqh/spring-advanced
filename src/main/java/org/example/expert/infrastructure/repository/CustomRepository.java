@@ -1,6 +1,6 @@
 package org.example.expert.infrastructure.repository;
 
-import org.example.expert.common.exception.ErrorCode;
+import org.example.expert.common.exception.base.ErrorCode;
 
 public interface CustomRepository<T> {
 

@@ -15,7 +15,7 @@ import org.example.expert.infrastructure.repository.ManagerRepository;
 import org.example.expert.infrastructure.repository.UserRepository;
 import org.example.expert.application.service.ManagerService;
 import org.example.expert.presentation.utils.AuthUser;
-import org.example.expert.common.exception.InvalidRequestException;
+import org.example.expert.common.exception.business.InvalidRequestException;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.domain.user.*;
