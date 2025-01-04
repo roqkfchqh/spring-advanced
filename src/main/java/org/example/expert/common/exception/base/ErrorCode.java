@@ -30,7 +30,9 @@ public enum ErrorCode {
     FORBIDDEN_OPERATION(HttpStatus.FORBIDDEN, "권한이 없습니다."),
 
     //server
+    CACHING_WRAPPER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ContentCachingWrapper 가 설정되지 않았습니다. 필터를 확인하세요."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류입니다.");
+
 
     private final HttpStatus status;
     private final String message;

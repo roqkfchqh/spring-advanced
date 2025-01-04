@@ -27,18 +27,15 @@ public class WeatherClient {
                 restTemplate.getForEntity(buildWeatherApiUri(), WeatherDto[].class);
 
         WeatherDto[] weatherArray = responseEntity.getBody();
-        if (!HttpStatus.OK.equals(responseEntity.getStatusCode())) {
-            throw new ServerException(ErrorCode.INTERNAL_SERVER_ERROR);
-        }
-        if (weatherArray == null || weatherArray.length == 0) {
+        if (!HttpStatus.OK.equals(responseEntity.getStatusCode()) || weatherArray == null || weatherArray.length == 0) {
             throw new ServerException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
 
         String today = getCurrentDate();
 
         for (WeatherDto weatherDto : weatherArray) {
-            if (today.equals(weatherDto.getDate())) {
-                return weatherDto.getWeather();
+            if (today.equals(weatherDto.date())) {
+                return weatherDto.weather();
             }
         }
 

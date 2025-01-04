@@ -1,4 +1,4 @@
-package org.example.expert.infrastructure.security.interceptor;
+package org.example.expert.infrastructure.security.adminlogging;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
