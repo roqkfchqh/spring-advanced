@@ -3,9 +3,11 @@ package org.example.expert.application.mapper;
 import org.example.expert.domain.todo.Todo;
 import org.example.expert.application.dto.response.TodoResponse;
 import org.example.expert.application.dto.response.UserResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("todoMapper")
 public class TodoMapper implements Mapper<Todo, TodoResponse> {
 
     @Override

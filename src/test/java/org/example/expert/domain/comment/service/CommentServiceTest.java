@@ -1,6 +1,9 @@
 package org.example.expert.domain.comment.service;
 
 import org.example.expert.application.dto.response.CommentResponseDto;
+import org.example.expert.application.dto.response.UserResponse;
+import org.example.expert.application.mapper.Mapper;
+import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.application.service.CommentService;
 import org.example.expert.presentation.utils.AuthUser;
@@ -16,13 +19,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 class CommentServiceTest {
@@ -34,36 +36,43 @@ class CommentServiceTest {
     @InjectMocks
     private CommentService commentService;
 
+    @Mock
+    @Qualifier("commentMapper")
+    private Mapper<Comment, CommentResponseDto> mapper;
+
     @Test
-    public void todoNotFoundWhenCreateComment() {
+    public void todoNotFoundWhenGetComments() {
         // given
-        long todoId = 1;
-        CommentSaveRequestDto request = new CommentSaveRequestDto("contents");
-        AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
+        long todoId = 1L;
 
-        given(todoRepository.findById(anyLong())).willReturn(Optional.empty());
+        doThrow(new InvalidRequestException(ErrorCode.TODO_NOT_FOUND))
+                .when(commentRepository).validateExistsById(todoId, ErrorCode.TODO_NOT_FOUND);
 
-        // when
+        // when & then
         InvalidRequestException exception = assertThrows(InvalidRequestException.class, () -> {
-            commentService.saveComment(authUser, todoId, request);
+            commentService.getComments(todoId);
         });
-
-        // then
-        assertEquals("Todo not found", exception.getMessage());
+        assertEquals("해당 게시글이 존재하지 않습니다.", exception.getMessage());
     }
 
     @Test
     public void successCreateComment() {
         // given
-        long todoId = 1;
-        CommentSaveRequestDto request = new CommentSaveRequestDto("contents");
-        AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
+        long todoId = 1L;
+        CommentSaveRequestDto request = new CommentSaveRequestDto("Test comment");
+        AuthUser authUser = new AuthUser(1L, "email@test.com", UserRole.USER);
         User user = User.fromAuthUser(authUser);
-        Todo todo = Todo.of("title", "title", "contents", user);
+        Todo todo = Todo.of("Test title", "Test contents", "Sunny", user);
         Comment comment = Comment.of(request.contents(), user, todo);
+        CommentResponseDto responseDto = new CommentResponseDto(
+                comment.getId(),
+                comment.getContents(),
+                new UserResponse(user.getId(), user.getEmail())
+        );
 
-        given(todoRepository.findById(anyLong())).willReturn(Optional.of(todo));
-        given(commentRepository.save(any())).willReturn(comment);
+        lenient().when(todoRepository.findByIdOrThrow(todoId, ErrorCode.TODO_NOT_FOUND)).thenReturn(todo);
+        lenient().when(commentRepository.save(any(Comment.class))).thenReturn(comment);
+        lenient().when(mapper.toDto(any(Comment.class))).thenReturn(responseDto);
 
         // when
         CommentResponseDto result = commentService.saveComment(authUser, todoId, request);

@@ -3,9 +3,11 @@ package org.example.expert.application.mapper;
 import org.example.expert.domain.todo.Manager;
 import org.example.expert.application.dto.response.ManagerResponse;
 import org.example.expert.application.dto.response.UserResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("managerMapper")
 public class ManagerMapper implements Mapper<Manager, ManagerResponse> {
 
     @Override

@@ -66,6 +66,13 @@ dependencies {
     //postgresql
     implementation 'org.postgresql:postgresql:42.7.2'
     runtimeOnly 'org.postgresql:postgresql'
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+
+    //AssertJ
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 clean {	delete file('src/main/generated')}

@@ -3,9 +3,11 @@ package org.example.expert.application.mapper;
 import org.example.expert.domain.todo.Comment;
 import org.example.expert.application.dto.response.CommentResponseDto;
 import org.example.expert.application.dto.response.UserResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("commentMapper")
 public class CommentMapper implements Mapper<Comment, CommentResponseDto> {
 
     @Override
