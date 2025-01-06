@@ -11,7 +11,6 @@ import org.example.expert.presentation.utils.AuthUser;
 import org.example.expert.domain.todo.*;
 import org.example.expert.application.dto.request.CommentSaveRequestDto;
 import org.example.expert.domain.user.User;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class CommentService {
 
     private final TodoRepository todoRepository;
     private final CommentRepository commentRepository;
-    @Qualifier("commentMapper")
     private final Mapper<Comment, CommentResponseDto> mapper;
 
     @Transactional

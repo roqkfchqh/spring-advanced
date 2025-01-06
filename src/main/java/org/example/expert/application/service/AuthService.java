@@ -10,6 +10,7 @@ import org.example.expert.common.exception.business.InvalidRequestException;
 import org.example.expert.application.dto.request.SigninRequestDto;
 import org.example.expert.application.dto.request.SignupRequestDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public User signup(final SignupRequestDto dto) {
         if (userRepository.existsByEmail(dto.email())) {
             throw new InvalidRequestException(ErrorCode.ALREADY_USED_EMAIL);

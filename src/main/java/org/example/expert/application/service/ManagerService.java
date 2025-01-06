@@ -14,7 +14,6 @@ import org.example.expert.domain.todo.Todo;
 import org.example.expert.infrastructure.repository.TodoRepository;
 import org.example.expert.domain.user.*;
 import org.example.expert.application.dto.request.ManagerSaveRequestDto;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -26,7 +25,6 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final UserRepository userRepository;
     private final TodoRepository todoRepository;
-    @Qualifier("managerMapper")
     private final Mapper<Manager, ManagerResponse> mapper;
 
     @Transactional
