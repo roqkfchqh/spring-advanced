@@ -25,4 +25,7 @@ public class CustomRepositoryImpl<T> implements CustomRepository<T> {
             throw new InvalidRequestException(errorCode);
         }
     }
+
+    //겹치는 repository 관련 코드들 이런식으로 함께 사용하고싶은데 의존성 주입할때 오류가 생기는 상황입니다
+    //좋은 방법 있을까요..
 }
