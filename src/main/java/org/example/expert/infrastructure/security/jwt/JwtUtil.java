@@ -22,6 +22,7 @@ public class JwtUtil {
     private static final String BEARER_PREFIX = "Bearer ";
     private static final long TOKEN_TIME = 60 * 60 * 1000L;
 
+    //secretKey 대충 아무거나 넣음
     @Value("${jwt.secret.key}")
     private String secretKey;
     private Key key;
@@ -82,6 +83,4 @@ public class JwtUtil {
             throw new IllegalArgumentException("Invalid or expired JWT token");
         }
     }
-
-    //TODO: List 반환형 고민하기 ( 디코에 있음)
 }

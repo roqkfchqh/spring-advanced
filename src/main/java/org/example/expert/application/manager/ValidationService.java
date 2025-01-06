@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ValidationService {
+public class ValidationService {//검증 로직 많이 필요한 경우 모아둠
 
     private final RequestValidator requestValidator;
 

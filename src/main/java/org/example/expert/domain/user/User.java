@@ -10,15 +10,15 @@ import org.example.expert.domain.common.Timestamped;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(name = "UniqueMemberEmail", columnNames = {"email"})
+})
 public class User extends Timestamped {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String email;
-
     private String password;
 
     @Enumerated(EnumType.STRING)

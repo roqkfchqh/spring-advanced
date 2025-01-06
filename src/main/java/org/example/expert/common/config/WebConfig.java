@@ -30,6 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/admin/**");
     }
 
+    //admin기능에 대해 캐싱
     @Bean
     public FilterRegistrationBean<ContentCachingFilter> contentCachingFilter() {
         FilterRegistrationBean<ContentCachingFilter> registrationBean = new FilterRegistrationBean<>();

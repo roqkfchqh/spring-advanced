@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.common.exception.business.AuthException;
 import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.common.exception.business.ForbiddenException;
+import org.example.expert.common.exception.system.ServerException;
 import org.example.expert.infrastructure.security.jwt.JwtUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -39,7 +40,7 @@ public class AdminAccessInterceptor implements HandlerInterceptor {
             return true;
 
         } catch (Exception e) {
-            throw new AuthException(ErrorCode.INVALID_TOKEN);
+            throw new ServerException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
     }
 }
