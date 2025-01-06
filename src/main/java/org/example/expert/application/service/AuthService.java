@@ -1,7 +1,7 @@
 package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.infrastructure.repository.UserRepository;
+import org.example.expert.domain.user.UserRepository;
 import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.domain.user.*;
 import org.example.expert.infrastructure.security.encoder.PasswordEncoder;

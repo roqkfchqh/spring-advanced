@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.application.manager.ValidationService;
 import org.example.expert.common.exception.base.ErrorCode;
 import org.example.expert.domain.user.User;
-import org.example.expert.infrastructure.repository.UserRepository;
+import org.example.expert.domain.user.UserRepository;
 import org.example.expert.application.dto.request.UserRoleChangeRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

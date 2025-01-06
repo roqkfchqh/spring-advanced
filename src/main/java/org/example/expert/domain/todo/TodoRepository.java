@@ -1,6 +1,6 @@
-package org.example.expert.infrastructure.repository;
+package org.example.expert.domain.todo;
 
-import org.example.expert.domain.todo.Todo;
+import org.example.expert.infrastructure.repository.CustomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;

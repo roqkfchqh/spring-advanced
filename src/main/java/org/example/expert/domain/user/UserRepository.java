@@ -1,6 +1,6 @@
-package org.example.expert.infrastructure.repository;
+package org.example.expert.domain.user;
 
-import org.example.expert.domain.user.User;
+import org.example.expert.infrastructure.repository.CustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

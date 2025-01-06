@@ -2,7 +2,7 @@ package org.example.expert.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.expert.common.exception.base.ErrorCode;
-import org.example.expert.infrastructure.repository.CommentRepository;
+import org.example.expert.domain.todo.CommentRepository;
 import org.springframework.stereotype.Service;
 
 @Service

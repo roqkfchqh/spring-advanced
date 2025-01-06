@@ -1,8 +1,8 @@
-package org.example.expert.infrastructure.repository;
+package org.example.expert.domain.todo;
 
 import java.util.List;
 
-import org.example.expert.domain.todo.Manager;
+import org.example.expert.infrastructure.repository.CustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
